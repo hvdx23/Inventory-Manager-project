@@ -16,6 +16,8 @@ public class ProjectFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         rootManagerFrame contentpane = new rootManagerFrame();
         setContentPane(contentpane);
+        pack();
+//        setLocationRelativeTo(null);
         setVisible(true);
 
     }
