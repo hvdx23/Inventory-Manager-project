@@ -4,6 +4,7 @@ import javax.swing.*;
 
 
 public class ProjectFrame extends JFrame {
+    private JFrame frame;
     public ProjectFrame(String ProductManager, int x, int y, int width, int height) {
 //        JFrame frame = new JFrame("Product Manager");
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,22 +23,20 @@ public class ProjectFrame extends JFrame {
 
     }
 
+
+
     private void setContentPane(rootManagerFrame contentpane) {
 
 
     }
 
-//    private void setTitle(String productManager) {
-//    }
 
-//    private void setVisible(boolean b) {
-//    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
         @Override
                 public void run() {
                     ProjectFrame frame = new ProjectFrame("Product Manager", 100, 100, 800, 800);
-
+//                    JFileChooser fileChooser = new JFileChooser();
                 }
         });
 

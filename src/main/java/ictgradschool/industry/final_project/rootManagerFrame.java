@@ -4,11 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class rootManagerFrame extends JPanel implements ActionListener {
 
     private JButton Open;
     private JButton Create;
+
 
     public rootManagerFrame() {
         JFrame frame = new JFrame("Product Manager");
@@ -33,7 +35,24 @@ public class rootManagerFrame extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Create) {
+
             // Handle Create button click event
         }
+        if (e.getSource()==Open){
+            final JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fc.setCurrentDirectory(new File("../src/main/resources/"));
+            int returnVal=fc.showDialog(rootManagerFrame.this,"Open");
+
+            if(returnVal==JFileChooser.APPROVE_OPTION){
+                File directory=fc.getSelectedFile();
+
+                System.out.println(directory);
+            }
+
+        }
+
+
     }
 }
+
