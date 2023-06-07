@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class rootManagerFrame extends JPanel implements ActionListener {
 
-    private JButton Open;
-    private JButton Create;
+    private JButton open;
+    private JButton create;
 
-    private JButton Close;
+    private JButton close;
     private JFileChooser fileChooser;
 
 
@@ -25,19 +25,19 @@ public class rootManagerFrame extends JPanel implements ActionListener {
 
         JPanel contentpane = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        Open = new JButton("Select existing Filestore");
+        open = new JButton("Select existing Filestore");
 //        Open.setPreferredSize(new Dimension(100, 30));
-        contentpane.add(Open);
-        Open.addActionListener(this);
+        contentpane.add(open);
+        open.addActionListener(this);
 
-        Create = new JButton("Create new Filestore");
+        create = new JButton("Create new Filestore");
 //        Create.setPreferredSize(new Dimension(100, 30));
-        contentpane.add(Create);
-        Create.addActionListener(this);
+        contentpane.add(create);
+        create.addActionListener(this);
 
-        Close = new JButton("Close");
-        contentpane.add(Close);
-        Close.addActionListener(this);
+        close = new JButton("Close");
+        contentpane.add(close);
+        close.addActionListener(this);
 
 
         frame.setContentPane(contentpane);
@@ -46,7 +46,7 @@ public class rootManagerFrame extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == Create) {
+        if (e.getSource() == create) {
             final JFileChooser fc = new JFileChooser();
             fc.setCurrentDirectory(new File("../src/main/resources/"));
             int returnVal =fc.showSaveDialog(rootManagerFrame.this);
@@ -54,9 +54,11 @@ public class rootManagerFrame extends JPanel implements ActionListener {
 
             if(returnVal==JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
+                String filePath=file.getAbsolutePath();
 
                 if (file.exists()) {
                     JOptionPane.showMessageDialog(this, "File already exists");
+
                     return;
                 }
                 try {
@@ -68,17 +70,20 @@ public class rootManagerFrame extends JPanel implements ActionListener {
                     FileWriter writer = new FileWriter(file);
                     writer.close();
                     JOptionPane.showMessageDialog(this, "File created successfully");
+
+                    PrimaryManager primaryManager=new PrimaryManager();
                 }
                 catch (IOException exc) {
                     exc.printStackTrace();
                 }
+
             }
 
 
 
             // Handle Create button click event
         }
-        if (e.getSource()==Open){
+        if (e.getSource()== open){
             final JFileChooser fc = new JFileChooser();
 //            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fc.setCurrentDirectory(new File("../src/main/resources/"));
@@ -92,7 +97,9 @@ public class rootManagerFrame extends JPanel implements ActionListener {
                 if (nameExtension.equalsIgnoreCase("csv")){
                     JOptionPane.showMessageDialog(this,"You have selected to open "+fileName);
                     try {
-                        Desktop.getDesktop().open(file);
+                        InventoryItems inventoryItems=new InventoryItems(file.getAbsolutePath());
+                        PrimaryManager primaryManager=new PrimaryManager();
+
                     }catch (IOException exc){
                         exc.printStackTrace();
 
@@ -112,7 +119,7 @@ public class rootManagerFrame extends JPanel implements ActionListener {
             }
 
         }
-        if (e.getSource()==Close){
+        if (e.getSource()== close){
             System.exit(0);
         }
 

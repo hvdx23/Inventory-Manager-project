@@ -1,27 +1,4 @@
 package ictgradschool.industry.final_project;
-//import javax.swing.table.AbstractTableModel;
-//
-//public class InventoryItems extends AbstractTableModel {
-//    @Override
-//    public int getRowCount() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public int getColumnCount() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public Object getValueAt(int rowIndex, int columnIndex) {
-//        return null;
-//    }
-//
-//
-//}
-
-
-
 import javax.swing.table.AbstractTableModel;
 import java.io.*;
 import java.util.ArrayList;
@@ -86,5 +63,18 @@ public class InventoryItems extends AbstractTableModel {
             return data.get(rowIndex)[columnIndex];
         }
         return null;
+    }
+
+    public int getData() {
+        return data.size();
+    }
+
+    public int getColumnNames() {
+        return columnNames.length;
+    }
+
+    public void addItem(String[] newItem) {
+        data.add(newItem);
+        fireTableRowsInserted(data.size() - 1, data.size() - 1);
     }
 }
