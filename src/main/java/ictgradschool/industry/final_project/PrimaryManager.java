@@ -12,9 +12,17 @@ public class PrimaryManager extends rootManagerFrame{
     private JButton back;
 
     private JButton close;
+    private String filePath;
+
+    public PrimaryManager(){
+
+    }
 
 
-    public PrimaryManager() {
+
+
+    public PrimaryManager(String filePath) {
+
 
             JFrame frame = new JFrame("Product Manager");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,8 +52,8 @@ public class PrimaryManager extends rootManagerFrame{
 
     }
 
-
-    public void ActionPerformed(ActionEvent e){
+    @Override
+    public void actionPerformed(ActionEvent e){
         if (e.getSource() == pos) {
             PointOfSale pos = new PointOfSale();
             pos.setVisible(true);

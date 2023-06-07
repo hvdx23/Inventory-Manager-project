@@ -39,6 +39,7 @@ public class InventoryItems extends AbstractTableModel {
                 bw.write(String.join(",", row));
                 bw.newLine();
             }
+            fireTableStructureChanged();
         } catch (IOException e) {
             e.printStackTrace();
         }

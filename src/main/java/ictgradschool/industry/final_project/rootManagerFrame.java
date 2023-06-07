@@ -68,7 +68,7 @@ public class rootManagerFrame extends JPanel implements ActionListener {
                     FileWriter writer = new FileWriter(file);
                     writer.close();
                     JOptionPane.showMessageDialog(this, "File created successfully");
-                    PrimaryManager primaryManager=new PrimaryManager();
+                    PrimaryManager primaryManager=new PrimaryManager(file.getAbsolutePath());
                 }
                 catch (IOException exc) {
                     exc.printStackTrace();
@@ -93,14 +93,9 @@ public class rootManagerFrame extends JPanel implements ActionListener {
                 String nameExtension=fileName.substring(fileName.lastIndexOf(".")+1);
                 if (nameExtension.equalsIgnoreCase("csv")){
                     JOptionPane.showMessageDialog(this,"You have selected to open "+fileName);
-                    try {
-                        Desktop.getDesktop().open(file);
-                      PrimaryManager primaryManager=new PrimaryManager();
 
-                    }catch (IOException exc){
-                        exc.printStackTrace();
-
-                    }
+                    InventoryManager inventoryManager=new InventoryManager(file.getAbsolutePath());
+                    PrimaryManager primaryManager=new PrimaryManager(file.getAbsolutePath());
 
 
                     System.out.println("FIle valid & opening");
