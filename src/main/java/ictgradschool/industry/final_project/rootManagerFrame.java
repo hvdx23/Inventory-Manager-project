@@ -54,11 +54,9 @@ public class rootManagerFrame extends JPanel implements ActionListener {
 
             if(returnVal==JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                String filePath=file.getAbsolutePath();
 
                 if (file.exists()) {
                     JOptionPane.showMessageDialog(this, "File already exists");
-
                     return;
                 }
                 try {
@@ -70,7 +68,6 @@ public class rootManagerFrame extends JPanel implements ActionListener {
                     FileWriter writer = new FileWriter(file);
                     writer.close();
                     JOptionPane.showMessageDialog(this, "File created successfully");
-
                     PrimaryManager primaryManager=new PrimaryManager();
                 }
                 catch (IOException exc) {
@@ -97,8 +94,8 @@ public class rootManagerFrame extends JPanel implements ActionListener {
                 if (nameExtension.equalsIgnoreCase("csv")){
                     JOptionPane.showMessageDialog(this,"You have selected to open "+fileName);
                     try {
-                        InventoryItems inventoryItems=new InventoryItems(file.getAbsolutePath());
-                        PrimaryManager primaryManager=new PrimaryManager();
+                        Desktop.getDesktop().open(file);
+                      PrimaryManager primaryManager=new PrimaryManager();
 
                     }catch (IOException exc){
                         exc.printStackTrace();
