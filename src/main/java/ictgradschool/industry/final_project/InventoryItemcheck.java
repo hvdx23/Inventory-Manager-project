@@ -23,7 +23,7 @@ public class InventoryItemcheck {
         inventory.addItem(newItem1);
         for (int i = 0; i < inventory.getRowCount(); i++) {
             Item item = inventory.getItem(i);
-            System.out.println("Item " + (i + 1) + ":");
+            System.out.println("Item " + (i) + ":");
             System.out.println("Identifier: " + item.getIdentifier());
             System.out.println("Name: " + item.getName());
             System.out.println("Description: " + item.getDescription());

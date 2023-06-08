@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class InventoryItems extends AbstractTableModel {
+public class InventoryItems extends AbstractTableModel implements InventoryObserver {
     private List<Item> data = new ArrayList<>();
 
     private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
@@ -16,17 +16,12 @@ public class InventoryItems extends AbstractTableModel {
     public void loadFromCSV(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            boolean firstLine = true;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 System.out.println("Values: " + Arrays.toString(values)); // Debug output
-                if (firstLine) {
-                    columnNames = values;
-                    firstLine = false;
-                } else {
+
                     Item item = createInventoryItemFromValues(values);
                     addItem(item);
-                }
             }
             fireTableStructureChanged();
         } catch (IOException e) {
@@ -98,6 +93,30 @@ public class InventoryItems extends AbstractTableModel {
         return null;
     }
 
+    @Override
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        if (rowIndex >= 0 && rowIndex < data.size() && columnIndex < getColumnCount()) {
+            Item item = data.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    item.setIdentifier((String) value);
+                    break;
+                case 1:
+                    item.setName((String) value);
+                    break;
+                case 2:
+                    item.setDescription((String) value);
+                    break;
+                case 3:
+                    item.setPrice((double) value);
+                    break;
+                case 4:
+                    item.setQuantity((int) value);
+                    break;
+            }
+            fireTableCellUpdated(rowIndex, columnIndex);
+        }
+    }
 
     //defaultcode
 //    private String[] createValuesFromInventoryItem(Item item) {
@@ -139,5 +158,10 @@ public class InventoryItems extends AbstractTableModel {
             return data.get(index);
         }
         return null;
+    }
+
+    @Override
+    public void onInventoryChange() {
+
     }
 }
