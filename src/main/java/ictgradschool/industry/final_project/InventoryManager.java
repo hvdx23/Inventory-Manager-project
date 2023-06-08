@@ -38,7 +38,9 @@ public class InventoryManager extends JTable{
 
         inventoryItems.loadFromCSV(filePath);
 
-        table.setModel(new DefaultTableModel(inventoryItems.getData(), inventoryItems.getColumnNames()));
+//        table.setModel(new DefaultTableModel(inventoryItems.getData(), inventoryItems.getColumnNames()));
+        table.setModel(new DefaultTableModel(new Object[][]{}, inventoryItems.getColumnNames()));
+
         setVisible(true);
 
 

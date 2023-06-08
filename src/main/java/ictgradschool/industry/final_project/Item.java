@@ -10,12 +10,12 @@ public class Item {
 
     private  int Quantity;
 
-    public Item(String identifier, String name, String description, double price, int quantity) {
-        this.Identifier = identifier;
-        this.Name = name;
-        this.Description = description;
-        this.Price = price;
-        this.Quantity = quantity;
+    public Item(String Identifier, String Name, String Description, double Price, int Quantity) {
+        this.Identifier = Identifier;
+        this.Name = Name;
+        this.Description = Description;
+        this.Price = Price;
+        this.Quantity = Quantity;
     }
 
     public  String getIdentifier() {

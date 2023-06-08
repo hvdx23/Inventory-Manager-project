@@ -8,7 +8,7 @@ import java.util.List;
 public class InventoryItems extends AbstractTableModel {
     private List<Item> data = new ArrayList<>();
 
-    private String[] columnNames={"Identifier","Name","Description", "price", "quantity"};
+    private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
 
 //    public void loadFromCSV(String filePath) {
 //        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -29,6 +29,31 @@ public class InventoryItems extends AbstractTableModel {
 //            e.printStackTrace();
 //        }
 //    }
+//
+
+
+    //loadFromCSV working for following code
+//    public void loadFromCSV(String filePath) {
+//        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+//            String line;
+//            boolean firstLine = true;
+//            while ((line = br.readLine()) != null) {
+//                String[] values = line.split(",");
+//                System.out.println("Values: " + Arrays.toString(values)); // Debug output
+//                if (firstLine) {
+//                    columnNames = values;
+//                    firstLine = false;
+//                } else {
+//                    Item item = createInventoryItemFromValues(values);
+//                    addItem(item);
+//                }
+//            }
+//            fireTableStructureChanged();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 
     public void loadFromCSV(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -50,7 +75,7 @@ public class InventoryItems extends AbstractTableModel {
             e.printStackTrace();
         }
     }
-
+    //savetoCSVdefault Code
     public void saveToCSV(String filePath) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             // Write column names
@@ -126,8 +151,8 @@ public class InventoryItems extends AbstractTableModel {
         return data.size();
     }
 
-    public int getColumnNames() {
-        return columnNames.length;
+    public String[] getColumnNames() {
+        return columnNames;
     }
 
     public void addItem(Item newItem) {

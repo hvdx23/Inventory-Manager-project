@@ -18,7 +18,9 @@ public class PointOfSale extends JFrame {
     }
 
     private void initComponents() {
-        table.setModel(new DefaultTableModel(inventoryItems.getData(), inventoryItems.getColumnNames()));
+//        table.setModel(new DefaultTableModel(inventoryItems.getData(), inventoryItems.getColumnNames()));
+        table.setModel(new DefaultTableModel(new Object[][]{}, inventoryItems.getColumnNames()));
+
     }
 
 }
