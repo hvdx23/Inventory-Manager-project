@@ -2,6 +2,7 @@ package ictgradschool.industry.final_project;
 import javax.swing.table.AbstractTableModel;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class InventoryItems extends AbstractTableModel {
@@ -9,17 +10,39 @@ public class InventoryItems extends AbstractTableModel {
 
     private String[] columnNames={"Identifier","Name","Description", "price", "quantity"};
 
+//    public void loadFromCSV(String filePath) {
+//        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+//            String line;
+//            boolean firstLine = true;
+//            while ((line = br.readLine()) != null) {
+//                String[] values = line.split(",");
+//                if (firstLine) {
+//                    columnNames = values;
+//                    firstLine = false;
+//                } else {
+//                    Item item=createInventoryItemFromValues(values);
+//                    addItem(item);
+//                }
+//            }
+//            fireTableStructureChanged();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     public void loadFromCSV(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
+                System.out.println("Values: " + Arrays.toString(values)); // Debug output
                 if (firstLine) {
                     columnNames = values;
                     firstLine = false;
                 } else {
-                    Item item=createInventoryItemFromValues(values);
+                    Item item = createInventoryItemFromValues(values);
+                    addItem(item);
                 }
             }
             fireTableStructureChanged();
@@ -110,5 +133,12 @@ public class InventoryItems extends AbstractTableModel {
     public void addItem(Item newItem) {
         data.add(newItem);
         fireTableRowsInserted(data.size() - 1, data.size() - 1);
+    }
+
+    public Item getItem(int index){
+        if(index>=0 && index<data.size()){
+            return data.get(index);
+        }
+        return null;
     }
 }
