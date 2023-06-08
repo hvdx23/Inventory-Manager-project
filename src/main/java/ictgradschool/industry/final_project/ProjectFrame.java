@@ -37,6 +37,8 @@ public class ProjectFrame extends JFrame {
                 public void run() {
                     ProjectFrame frame = new ProjectFrame("Product Manager", 100, 100, 800, 800);
 //                    JFileChooser fileChooser = new JFileChooser();
+            InventoryItems inventoryItems = new InventoryItems();
+            SaleInventory saleInventory = new SaleInventory();
                 }
         });
 

@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class InventoryItems extends AbstractTableModel implements InventoryObserver {
+public class InventoryItems extends AbstractTableModel {
     private List<Item> data = new ArrayList<>();
+    private List<InventoryObserver> observers=new ArrayList<>();
 
     private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
 
@@ -18,7 +19,7 @@ public class InventoryItems extends AbstractTableModel implements InventoryObser
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                System.out.println("Values: " + Arrays.toString(values)); // Debug output
+//                System.out.println("Values: " + Arrays.toString(values)); // Debug output
 
                     Item item = createInventoryItemFromValues(values);
                     addItem(item);
@@ -88,6 +89,7 @@ public class InventoryItems extends AbstractTableModel implements InventoryObser
                     return item.getQuantity();
                 default:
                     return null;
+
             }
         }
         return null;
@@ -115,19 +117,10 @@ public class InventoryItems extends AbstractTableModel implements InventoryObser
                     break;
             }
             fireTableCellUpdated(rowIndex, columnIndex);
+            notifyObservers();
         }
     }
 
-    //defaultcode
-//    private String[] createValuesFromInventoryItem(Item item) {
-//        String[] values = new String[5];
-//        values[0] = item.getIdentifier();
-//        values[1] = item.getName();
-//        values[2] = item.getDescription();
-//        values[3] = String.valueOf(item.getPrice());
-//        values[4] = String.valueOf(item.getQuantity());
-//        return values;
-//    }
 
     //new code for saveCSV
     private String createValuesFromInventoryItem(Item item) {
@@ -151,6 +144,7 @@ public class InventoryItems extends AbstractTableModel implements InventoryObser
     public void addItem(Item newItem) {
         data.add(newItem);
         fireTableRowsInserted(data.size() - 1, data.size() - 1);
+        notifyObservers();
     }
 
     public Item getItem(int index){
@@ -160,8 +154,31 @@ public class InventoryItems extends AbstractTableModel implements InventoryObser
         return null;
     }
 
-    @Override
-    public void onInventoryChange() {
+//    @Override
+//    public void onInventoryChange() {
+//        System.out.println("Inventory changed");
+//        String filePath= "observerchanged.csv";
+//        saveToCSV(filePath);
+//
+//    }
 
+    public void registerObserver(InventoryObserver observer){
+        observers.add(observer);
     }
+
+    public void removeObserver(InventoryObserver observer){
+        observers.remove(observer);
+    }
+
+    public void notifyObservers(){
+        for(InventoryObserver observer: observers){
+            observer.onInventoryChange();
+        }
+    }
+
+    public List<InventoryObserver> getObservers(){
+        return observers;
+    }
+
+
 }
