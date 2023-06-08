@@ -32,29 +32,29 @@ public class InventoryItemcheck {
             System.out.println();
         }
 
-        Item item= inventory.getItem(0);
-        if (item != null) {
-            System.out.println("Item Details:");
-            System.out.println("Identifier: " + item.getIdentifier());
-            System.out.println("Name: " + item.getName());
-            System.out.println("Description: " + item.getDescription());
-            System.out.println("Price: " + item.getPrice());
-            System.out.println("Quantity: " + item.getQuantity());
-        } else {
-            System.out.println("Item not found in inventory.");
-        }
-
-        Item item1 = inventory.getItem(1);
-        if (item1 != null) {
-            System.out.println("Item Details:");
-            System.out.println("Identifier: " + item1.getIdentifier());
-            System.out.println("Name: " + item1.getName());
-            System.out.println("Description: " + item1.getDescription());
-            System.out.println("Price: " + item1.getPrice());
-            System.out.println("Quantity: " + item1.getQuantity());
-        } else {
-            System.out.println("Item not found in inventory.");
-        }
+//        Item item= inventory.getItem(0);
+//        if (item != null) {
+//            System.out.println("Item Details:");
+//            System.out.println("Identifier: " + item.getIdentifier());
+//            System.out.println("Name: " + item.getName());
+//            System.out.println("Description: " + item.getDescription());
+//            System.out.println("Price: " + item.getPrice());
+//            System.out.println("Quantity: " + item.getQuantity());
+//        } else {
+//            System.out.println("Item not found in inventory.");
+//        }
+//
+//        Item item1 = inventory.getItem(1);
+//        if (item1 != null) {
+//            System.out.println("Item Details:");
+//            System.out.println("Identifier: " + item1.getIdentifier());
+//            System.out.println("Name: " + item1.getName());
+//            System.out.println("Description: " + item1.getDescription());
+//            System.out.println("Price: " + item1.getPrice());
+//            System.out.println("Quantity: " + item1.getQuantity());
+//        } else {
+//            System.out.println("Item not found in inventory.");
+//        }
 
 //        InventoryItems inventorysave= new InventoryItems();
         String filePath = "testsave.csv";

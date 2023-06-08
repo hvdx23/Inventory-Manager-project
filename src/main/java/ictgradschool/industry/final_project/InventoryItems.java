@@ -10,51 +10,9 @@ public class InventoryItems extends AbstractTableModel {
 
     private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
 
-//    public void loadFromCSV(String filePath) {
-//        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-//            String line;
-//            boolean firstLine = true;
-//            while ((line = br.readLine()) != null) {
-//                String[] values = line.split(",");
-//                if (firstLine) {
-//                    columnNames = values;
-//                    firstLine = false;
-//                } else {
-//                    Item item=createInventoryItemFromValues(values);
-//                    addItem(item);
-//                }
-//            }
-//            fireTableStructureChanged();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
 
 
-    //loadFromCSV working for following code
-//    public void loadFromCSV(String filePath) {
-//        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-//            String line;
-//            boolean firstLine = true;
-//            while ((line = br.readLine()) != null) {
-//                String[] values = line.split(",");
-//                System.out.println("Values: " + Arrays.toString(values)); // Debug output
-//                if (firstLine) {
-//                    columnNames = values;
-//                    firstLine = false;
-//                } else {
-//                    Item item = createInventoryItemFromValues(values);
-//                    addItem(item);
-//                }
-//            }
-//            fireTableStructureChanged();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
+//load from CSV working
     public void loadFromCSV(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -75,26 +33,8 @@ public class InventoryItems extends AbstractTableModel {
             e.printStackTrace();
         }
     }
-    //savetoCSVdefault Code
-//    public void saveToCSV(String filePath) {
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-//            // Write column names
-//            bw.write(String.join(",", columnNames));
-//            bw.newLine();
-//
-//            // Write data rows
-//            for (Item item : data) {
-//                String[] row = {item.getIdentifier(), item.getName(), item.getDescription(), String.valueOf(item.getPrice()), String.valueOf(item.getQuantity())};
-//                bw.write(String.join(",", row));
-//                bw.newLine();
-//            }
-//            fireTableStructureChanged();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
-    //savetoCSV checking for following code
+    //savetoCSV working
 
     public void saveToCSV(String filePath) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
