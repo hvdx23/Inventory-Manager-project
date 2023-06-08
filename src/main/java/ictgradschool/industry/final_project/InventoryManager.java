@@ -14,11 +14,11 @@ public class InventoryManager extends JTable{
     private String filePath;
 
     public InventoryManager(String filePath){
-        this.filePath=filePath;
-        setTitle("Inventory Manager");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initComponents();
-        pack();
+//        this.filePath=filePath;
+//        frame.setTitle("Inventory Manager");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        initComponents();
+//        pack();
 
     }
 

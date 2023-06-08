@@ -60,7 +60,7 @@ public class PrimaryManager extends rootManagerFrame{
             this.setVisible(false);
         }
         if (e.getSource() == inv) {
-            InventoryManager inv = new InventoryManager();
+//            InventoryManager inv = new InventoryManager();
             inv.setVisible(true);
             this.setVisible(false);
         }
