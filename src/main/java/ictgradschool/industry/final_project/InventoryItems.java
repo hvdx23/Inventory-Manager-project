@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryItems extends AbstractTableModel {
-    private List<String[]> data = new ArrayList<>();
+    private List<Item> data = new ArrayList<>();
 
     private String[] columnNames={"Identifier","Name","Description", "price", "quantity"};
 
@@ -19,7 +19,7 @@ public class InventoryItems extends AbstractTableModel {
                     columnNames = values;
                     firstLine = false;
                 } else {
-                    data.add(values);
+                    Item item=createInventoryItemFromValues(values);
                 }
             }
             fireTableStructureChanged();
@@ -35,7 +35,8 @@ public class InventoryItems extends AbstractTableModel {
             bw.newLine();
 
             // Write data rows
-            for (String[] row : data) {
+            for (Item item : data) {
+                String[] row = {item.getIdentifier(), item.getName(), item.getDescription(), String.valueOf(item.getPrice()), String.valueOf(item.getQuantity())};
                 bw.write(String.join(",", row));
                 bw.newLine();
             }
@@ -58,14 +59,46 @@ public class InventoryItems extends AbstractTableModel {
         return 0;
     }
 
+    private Item createInventoryItemFromValues(String[] values) {
+        String identifier = values[0];
+        String name = values[1];
+        String description = values[2];
+        double price = Double.parseDouble(values[3]);
+        int quantity = Integer.parseInt(values[4]);
+        return new Item(identifier, name, description, price, quantity);
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (rowIndex < data.size() && columnIndex < getColumnCount()) {
-            return data.get(rowIndex)[columnIndex];
+            Item item = data.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return item.getIdentifier();
+                case 1:
+                    return item.getName();
+                case 2:
+                    return item.getDescription();
+                case 3:
+                    return item.getPrice();
+                case 4:
+                    return item.getQuantity();
+                default:
+                    return null;
+            }
         }
         return null;
     }
 
+    private String[] createValuesFromInventoryItem(Item item) {
+        String[] values = new String[5];
+        values[0] = item.getIdentifier();
+        values[1] = item.getName();
+        values[2] = item.getDescription();
+        values[3] = String.valueOf(item.getPrice());
+        values[4] = String.valueOf(item.getQuantity());
+        return values;
+    }
     public int getData() {
         return data.size();
     }
@@ -74,7 +107,7 @@ public class InventoryItems extends AbstractTableModel {
         return columnNames.length;
     }
 
-    public void addItem(String[] newItem) {
+    public void addItem(Item newItem) {
         data.add(newItem);
         fireTableRowsInserted(data.size() - 1, data.size() - 1);
     }

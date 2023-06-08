@@ -51,11 +51,12 @@ public class InventoryManager extends JTable{
                 String price = JOptionPane.showInputDialog(null, "Enter price:");
                 String quantity = JOptionPane.showInputDialog(null, "Enter quantity:");
 
-                String[] newItem = {identifier, name, description, price, quantity};
-                inventoryItems.addItem(newItem);
-
-                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                tableModel.addRow(newItem);
+//                Item newItem;
+//                newItem = {identifier, name, description, price, quantity};
+//                inventoryItems.addItem(newItem);
+//
+//                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+//                tableModel.addRow(newItem);
 
                 inventoryItems.saveToCSV(filePath);
             }

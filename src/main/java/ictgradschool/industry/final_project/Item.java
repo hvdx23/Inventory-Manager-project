@@ -1,14 +1,14 @@
 package ictgradschool.industry.final_project;
 
 public class Item {
-    private final String Identifier;
-    private final String Name;
+    private String Identifier;
+    private  String Name;
 
-    private final String Description;
+    private  String Description;
 
-    private final double Price;
+    private  double Price;
 
-    private final int Quantity;
+    private  int Quantity;
 
     public Item(String identifier, String name, String description, double price, int quantity) {
         this.Identifier = identifier;
@@ -17,4 +17,45 @@ public class Item {
         this.Price = price;
         this.Quantity = quantity;
     }
+
+    public  String getIdentifier() {
+        return this.Identifier;
+    }
+
+    public String getName() {
+        return this.Name;
+    }
+
+    public String getDescription() {
+        return this.Description;
+    }
+
+    public int getQuantity() {
+        return this.Quantity;
+    }
+
+    public double getPrice() {
+        return this.Price;
+    }
+
+    public void setIdentifier(String Identifier){
+        this.Identifier= Identifier;
+    }
+
+    public void setName(String Name){
+        this.Name= Name;
+    }
+
+    public void setDescription(String Description){
+        this.Description= Description;
+    }
+
+    public void setPrice(double Price){
+        this.Price= Price;
+    }
+
+    public void setQuantity(int Quantity){
+        this.Quantity= Quantity;
+    }
+
 }
