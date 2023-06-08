@@ -76,6 +76,26 @@ public class InventoryItems extends AbstractTableModel {
         }
     }
     //savetoCSVdefault Code
+//    public void saveToCSV(String filePath) {
+//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+//            // Write column names
+//            bw.write(String.join(",", columnNames));
+//            bw.newLine();
+//
+//            // Write data rows
+//            for (Item item : data) {
+//                String[] row = {item.getIdentifier(), item.getName(), item.getDescription(), String.valueOf(item.getPrice()), String.valueOf(item.getQuantity())};
+//                bw.write(String.join(",", row));
+//                bw.newLine();
+//            }
+//            fireTableStructureChanged();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    //savetoCSV checking for following code
+
     public void saveToCSV(String filePath) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             // Write column names
@@ -84,15 +104,15 @@ public class InventoryItems extends AbstractTableModel {
 
             // Write data rows
             for (Item item : data) {
-                String[] row = {item.getIdentifier(), item.getName(), item.getDescription(), String.valueOf(item.getPrice()), String.valueOf(item.getQuantity())};
+                String[] row = new String[]{createValuesFromInventoryItem(item)};
                 bw.write(String.join(",", row));
                 bw.newLine();
             }
-            fireTableStructureChanged();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public int getRowCount() {
@@ -138,15 +158,29 @@ public class InventoryItems extends AbstractTableModel {
         return null;
     }
 
-    private String[] createValuesFromInventoryItem(Item item) {
+
+    //defaultcode
+//    private String[] createValuesFromInventoryItem(Item item) {
+//        String[] values = new String[5];
+//        values[0] = item.getIdentifier();
+//        values[1] = item.getName();
+//        values[2] = item.getDescription();
+//        values[3] = String.valueOf(item.getPrice());
+//        values[4] = String.valueOf(item.getQuantity());
+//        return values;
+//    }
+
+    //new code for saveCSV
+    private String createValuesFromInventoryItem(Item item) {
         String[] values = new String[5];
         values[0] = item.getIdentifier();
         values[1] = item.getName();
         values[2] = item.getDescription();
         values[3] = String.valueOf(item.getPrice());
         values[4] = String.valueOf(item.getQuantity());
-        return values;
+        return String.join(",", values);
     }
+
     public int getData() {
         return data.size();
     }

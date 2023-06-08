@@ -56,9 +56,12 @@ public class InventoryItemcheck {
             System.out.println("Item not found in inventory.");
         }
 
-        InventoryItems inventorysave= new InventoryItems();
+//        InventoryItems inventorysave= new InventoryItems();
         String filePath = "testsave.csv";
-        inventorysave.saveToCSV(filePath);
+        inventory.saveToCSV(filePath);
 
     }
 }
+//GODXXX7890,God of war,Game of the year,60,22,SPDMN765489,Spider man,enhanced,69,3,MILSMRLS23,Miles morales,Additional,40,23,DTH45STRND,Death Stranding,directors cut,75,34
+//        WITCHER123,Witcher 4,Best game ever,60.0,5
+//        RAGNAROK,God of war ragnarok,Best game ever-period,60.0,5
