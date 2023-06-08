@@ -14,13 +14,14 @@ public class Observercheck {
 
         // observer pattern implementation
         InventoryItems inventory = new InventoryItems();
-//        InventoryObserver observer=new InventoryChangeObserver();
+        InventoryObserver observer=new InventoryChangeObserver(inventory);
+        inventory.registerObserver(observer);
         SaleInventory saleInventory = new SaleInventory();
         inventory.loadFromCSV("testobs.csv");
         for (int i = 0; i < inventory.getRowCount(); i++) {
             Item item = inventory.getItem(i);
-//            System.out.println("Item " + (i) + ":");
-//            System.out.println("id: "+ item.getIdentifier()+ " name: "+ item.getName()+ " desc: "+ item.getDescription()+ " price: "+ item.getPrice()+ " Qty: "+ item.getQuantity());
+            System.out.println("Item " + (i) + ":");
+            System.out.println("id: "+ item.getIdentifier()+ " name: "+ item.getName()+ " desc: "+ item.getDescription()+ " price: "+ item.getPrice()+ " Qty: "+ item.getQuantity());
 ////            System.out.println("Identifier: " + item.getIdentifier());
 //            System.out.println("Name: " + item.getName());
 //            System.out.println("Description: " + item.getDescription());
@@ -43,10 +44,11 @@ public class Observercheck {
 //
 //        }
 
-        List<InventoryObserver> observers=inventory.getObservers();
-        for(InventoryObserver observer:observers){
-            System.out.println(observer);
-        }
+//        List<InventoryObserver> observers = inventory.getObservers();
+//
+//        for(InventoryObserver observer1:observers){
+//            System.out.println(observer);
+//        }
 
 
 

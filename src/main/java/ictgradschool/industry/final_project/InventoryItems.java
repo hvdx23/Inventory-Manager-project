@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Observable;
 
 public class InventoryItems extends AbstractTableModel {
     private List<Item> data = new ArrayList<>();
