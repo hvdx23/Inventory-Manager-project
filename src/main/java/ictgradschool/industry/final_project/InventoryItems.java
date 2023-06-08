@@ -25,10 +25,12 @@ public class InventoryItems extends AbstractTableModel {
                     Item item = createInventoryItemFromValues(values);
                     addItem(item);
             }
-            fireTableStructureChanged();
+//            fireTableStructureChanged();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //register observer here after file is loaded
+
     }
 
     //savetoCSV working
@@ -181,5 +183,15 @@ public class InventoryItems extends AbstractTableModel {
         return observers;
     }
 
-
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < getRowCount(); i++) {
+            Item item = getItem(i);
+            sb.append("Item ").append(i).append(":").append(System.lineSeparator());
+            sb.append("id: ").append(item.getIdentifier()).append(" name: ").append(item.getName()).append(" desc: ").append(item.getDescription())
+                    .append(" price: ").append(item.getPrice()).append(" Qty: ").append(item.getQuantity()).append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
 }

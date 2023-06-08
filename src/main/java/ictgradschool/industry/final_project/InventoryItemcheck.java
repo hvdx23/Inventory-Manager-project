@@ -57,7 +57,7 @@ public class InventoryItemcheck {
 //        }
 
 //        InventoryItems inventorysave= new InventoryItems();
-        String filePath = "testsave.csv";
+        String filePath = "testsaveinvne.csv";
         inventory.saveToCSV(filePath);
 
     }

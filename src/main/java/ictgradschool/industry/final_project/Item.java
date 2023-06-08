@@ -1,6 +1,6 @@
 package ictgradschool.industry.final_project;
 
-public class Item {
+public class Item extends InventoryItems{
     private String Identifier;
     private  String Name;
 
@@ -40,22 +40,27 @@ public class Item {
 
     public void setIdentifier(String Identifier){
         this.Identifier= Identifier;
+        notifyObservers();
     }
 
     public void setName(String Name){
         this.Name= Name;
+        notifyObservers();
     }
 
     public void setDescription(String Description){
         this.Description= Description;
+        notifyObservers();
     }
 
     public void setPrice(double Price){
         this.Price= Price;
+        notifyObservers();
     }
 
     public void setQuantity(int Quantity){
         this.Quantity= Quantity;
+        notifyObservers();
     }
 
 }
