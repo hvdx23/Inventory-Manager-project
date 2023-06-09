@@ -1,9 +1,7 @@
 package ictgradschool.industry.final_project;
 
 import javax.swing.table.AbstractTableModel;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +23,15 @@ public class POSInventory extends AbstractTableModel implements InventoryObserve
 
     public void addItemFromInventory(Item item) {
         //index returned is always -1. De bug it
-        int index = inventoryItems.getIndex(item);
-        if(index!=-1){
-            POS.add(item);
-            //reduces the quantity of the item in Inventoryitem datalist in InventoryItems class.
-            inventoryItems.reduceInventoryQuantity(item);
-        }
+//        int index = inventoryItems.getIndex(item);
+//        if(index!=-1){
+//            POS.add(item);
+//            //reduces the quantity of the item in Inventoryitem datalist in InventoryItems class.
+//            inventoryItems.reduceInventoryQuantity(item);
+//        }
+        String identifier=item.getIdentifier();
+        inventoryItems.reduceInventoryQuantity(identifier);
+        POS.add(item);
     }
 
 
@@ -86,6 +87,23 @@ public class POSInventory extends AbstractTableModel implements InventoryObserve
         values[3] = String.valueOf(item.getPrice());
         values[4] = String.valueOf(item.getQuantity());
         return String.join(",", values);
+    }
+    public void loadFromCSV(String filePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+//                System.out.println("Values: " + Arrays.toString(values)); // Debug output
+
+//                Item item = createInventoryItemFromValues(values);
+//                addItem(item);
+            }
+//            fireTableStructureChanged();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //register observer here after file is loaded
+
     }
 
     public void saveToCSV(String filePath) {

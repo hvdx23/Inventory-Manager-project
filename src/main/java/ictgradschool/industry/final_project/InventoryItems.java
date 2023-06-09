@@ -210,12 +210,17 @@ public class InventoryItems extends AbstractTableModel {
         return null;
     }
 
-    public void reduceInventoryQuantity(Item item){
-        int index = data.indexOf(item);
-        int currentQuantity = item.getQuantity();
-        int newQuantity = currentQuantity - 1;
-        item.setQuantity(newQuantity);
-        //reduce the quantity of the item in the inventory by 1
+    public void reduceInventoryQuantity(String identifier){
+        for (Item item : data) {
+            if (item.getIdentifier().equals(identifier)) {
+                int currentQuantity = item.getQuantity();
+                int newQuantity = currentQuantity - 1;
+                item.setQuantity(newQuantity);
+                break; // Exit the loop once the item is found and updated
+            }
+        }
+        //notify observer for changes in the list
+        notifyObservers();
 
     }
 
