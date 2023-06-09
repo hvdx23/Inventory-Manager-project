@@ -58,6 +58,13 @@ public class POSInventory extends AbstractTableModel implements InventoryObserve
         return 0;
     }
 
+    public Item getItem(int index){
+        if(index>=0 && index<POS.size()){
+            return POS.get(index);
+        }
+        return null;
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return null;
