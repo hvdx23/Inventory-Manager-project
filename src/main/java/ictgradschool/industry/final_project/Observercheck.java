@@ -1,13 +1,4 @@
 package ictgradschool.industry.final_project;
-import ictgradschool.industry.final_project.Item;
-import ictgradschool.industry.final_project.InventoryItems;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.table.AbstractTableModel;
 
 public class Observercheck {
     public static void main(String[] args) {
@@ -15,9 +6,10 @@ public class Observercheck {
         // observer pattern implementation
         InventoryItems inventory = new InventoryItems();
 
-        SaleInventory saleInventory = new SaleInventory();
+        POSInventory POSInventory = new POSInventory();
         inventory.loadFromCSV("test.csv");
         InventoryObserver observer = new InventoryChangeObserver(inventory);
+        //register observer
         inventory.registerObserver(observer);
         System.out.println(inventory);
 
@@ -46,7 +38,7 @@ public class Observercheck {
         Item newItem = new Item("WITCHER2345", "Witcher 3", "Best game ever", 60, 5);
         inventory.addItem(newItem);
 
-        System.out.println(inventory);
+
 
 
     }

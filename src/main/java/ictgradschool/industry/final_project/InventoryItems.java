@@ -65,6 +65,10 @@ public class InventoryItems extends AbstractTableModel {
         }
         return 0;
     }
+//    @Override
+    public int getIndex(Item item){
+        return data.indexOf(data);
+    }
 
     private Item createInventoryItemFromValues(String[] values) {
         String identifier = values[0];
@@ -74,6 +78,8 @@ public class InventoryItems extends AbstractTableModel {
         int quantity = Integer.parseInt(values[4]);
         return new Item(identifier, name, description, price, quantity);
     }
+
+
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
@@ -98,6 +104,35 @@ public class InventoryItems extends AbstractTableModel {
         return null;
     }
 
+
+    //OLD WORKING CODE FOR SET VALUE AT()
+//    @Override
+//    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+//        if (rowIndex >= 0 && rowIndex < data.size() && columnIndex < getColumnCount()) {
+//            Item item = data.get(rowIndex);
+//            switch (columnIndex) {
+//                case 0:
+//                    item.setIdentifier((String) value);
+//                    break;
+//                case 1:
+//                    item.setName((String) value);
+//                    break;
+//                case 2:
+//                    item.setDescription((String) value);
+//                    break;
+//                case 3:
+//                    item.setPrice((double) value);
+//                    break;
+//                case 4:
+//                    item.setQuantity((int) value);
+//                    break;
+//            }
+//            fireTableCellUpdated(rowIndex, columnIndex);
+//            notifyObservers();
+//        }
+//    }
+
+    //New cod efor setvalue with POS inventory addition and subtraction
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         if (rowIndex >= 0 && rowIndex < data.size() && columnIndex < getColumnCount()) {
@@ -116,13 +151,20 @@ public class InventoryItems extends AbstractTableModel {
                     item.setPrice((double) value);
                     break;
                 case 4:
-                    item.setQuantity((int) value);
+                    int newQuantity = (int) value;
+                    int currentQuantity = item.getQuantity();
+                    int quantityDifference = newQuantity - currentQuantity;
+                    item.setQuantity(newQuantity);
+                    fireTableCellUpdated(rowIndex, columnIndex);
+                    if (quantityDifference < 0) {
+                        // If the quantity has decreased, notify observers of the inventory change
+                        notifyObservers();
+                    }
                     break;
             }
-            fireTableCellUpdated(rowIndex, columnIndex);
-            notifyObservers();
         }
     }
+
 
 
     //new code for saveCSV
