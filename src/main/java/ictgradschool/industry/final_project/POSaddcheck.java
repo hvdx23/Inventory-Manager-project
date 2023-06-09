@@ -7,6 +7,7 @@ public class POSaddcheck {
         InventoryItems inventory = new InventoryItems();
         POSInventory posInventory=new POSInventory();
         inventory.loadFromCSV("test.csv");
+       //All Items added to inventory
         for (int i = 0; i < inventory.getRowCount(); i++) {
             Item item=inventory.getItem(i);
             posInventory.addItemFromInventory(item);
@@ -21,5 +22,11 @@ public class POSaddcheck {
         System.out.println(inventory);
         System.out.println("contents of POS: ");
         System.out.println(posInventory);
+
+
+        String filePath = "./test/inventory.csv";
+        inventory.saveToCSV(filePath);
+        String filePath1 = "./test/pos.csv";
+        posInventory.saveToCSV(filePath1);
     }
 }

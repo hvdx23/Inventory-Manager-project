@@ -1,6 +1,9 @@
 package ictgradschool.industry.final_project;
 
 import javax.swing.table.AbstractTableModel;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class POSInventory extends AbstractTableModel implements InventoryObserve
 
         // Reduce the quantity of the item by 1 in the general inventory
         int itemIndex = inventoryItems.getIndex(item); // Get the index of the item in the general inventory
-        if (itemIndex != -1) {
+        if (itemIndex >-1 ) {
             Item inventoryItem = inventoryItems.getItem(itemIndex); // Get the corresponding item in the general inventory
             int currentQuantity = inventoryItem.getQuantity(); // Get the current quantity
             if (currentQuantity > 0) {
@@ -74,5 +77,32 @@ public class POSInventory extends AbstractTableModel implements InventoryObserve
             sb.append("  Quantity: ").append(item.getQuantity()).append(System.lineSeparator());
         }
         return sb.toString();
+    }
+
+    private String createValuesFromInventoryItem(Item item) {
+        String[] values = new String[5];
+        values[0] = item.getIdentifier();
+        values[1] = item.getName();
+        values[2] = item.getDescription();
+        values[3] = String.valueOf(item.getPrice());
+        values[4] = String.valueOf(item.getQuantity());
+        return String.join(",", values);
+    }
+
+    public void saveToCSV(String filePath) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            // Write column names
+            bw.write(String.join(",", columnNames));
+            bw.newLine();
+
+            // Write data rows
+            for (Item item : POS) {
+                String[] row = new String[]{createValuesFromInventoryItem(item)};
+                bw.write(String.join(",", row));
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

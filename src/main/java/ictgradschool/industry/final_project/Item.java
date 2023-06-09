@@ -1,5 +1,7 @@
 package ictgradschool.industry.final_project;
 
+import java.util.Objects;
+
 public class Item extends InventoryItems{
     private String Identifier;
     private  String Name;
@@ -61,6 +63,24 @@ public class Item extends InventoryItems{
     public void setQuantity(int Quantity){
         this.Quantity= Quantity;
         notifyObservers();
+    }
+
+    //Obj code for getindex method
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Item other = (Item) obj;
+        return Objects.equals(Identifier, other.Identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Identifier);
     }
 
 }
