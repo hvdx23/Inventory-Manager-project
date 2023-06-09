@@ -8,40 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class POSInventory extends AbstractTableModel implements InventoryObserver {
+    //POS list for adding items to checkout
     private List<Item> POS = new ArrayList<>();
+
     private List<InventoryObserver> observers=new ArrayList<>();
 
     private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
 
     InventoryItems inventoryItems=new InventoryItems();
+    //loads the inventoryItems from data created in InventoryItems class
+    List<Item> data=inventoryItems.getInventoryData();
 
-//    public void addItemFromInventory(Item item){
-//        for(int i=0;i<inventoryItems.getRowCount();i++){
-//            POS.add(item);
-//        }
-//
-//        fireTableStructureChanged();
-//        notifyAll();
-//
-//    }
+
 
 
 
     public void addItemFromInventory(Item item) {
-        POS.add(item); // Add the item to the POS inventory
-
-        // Reduce the quantity of the item by 1 in the general inventory
-        int itemIndex = inventoryItems.getIndex(item); // Get the index of the item in the general inventory
-        if (itemIndex >-1 ) {
-            Item inventoryItem = inventoryItems.getItem(itemIndex); // Get the corresponding item in the general inventory
-            int currentQuantity = inventoryItem.getQuantity(); // Get the current quantity
-            if (currentQuantity > 0) {
-                inventoryItem.setQuantity(currentQuantity - 1); // Reduce the quantity by 1
-                inventoryItems.fireTableCellUpdated(itemIndex, inventoryItems.getColumnCount() - 1); // Notify the table model of the quantity update
-
-            }
+        //index returned is always -1. De bug it
+        int index = inventoryItems.getIndex(item);
+        if(index!=-1){
+            POS.add(item);
+            //reduces the quantity of the item in Inventoryitem datalist in InventoryItems class.
+            inventoryItems.reduceInventoryQuantity(item);
         }
     }
+
+
 
     @Override
     public void onInventoryChange() {
@@ -58,12 +50,12 @@ public class POSInventory extends AbstractTableModel implements InventoryObserve
         return 0;
     }
 
-    public Item getItem(int index){
-        if(index>=0 && index<POS.size()){
-            return POS.get(index);
-        }
-        return null;
-    }
+//    public Item getItem(int index){
+//        if(index>=0 && index<POS.size()){
+//            return POS.get(index);
+//        }
+//        return null;
+//    }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {

@@ -165,6 +165,17 @@ public class InventoryItems extends AbstractTableModel {
         }
     }
 
+    public List<Item> getInventoryData(){
+        //gives the data list with only greater than one quantity to POSInventory class
+        List<Item> inventoryData=new ArrayList<>();
+        for(Item item:data){
+            if(item.getQuantity()>0){
+                inventoryData.add(item);
+            }
+        }
+        return inventoryData;
+    }
+
 
 
     //new code for saveCSV
@@ -197,6 +208,15 @@ public class InventoryItems extends AbstractTableModel {
             return data.get(index);
         }
         return null;
+    }
+
+    public void reduceInventoryQuantity(Item item){
+        int index = data.indexOf(item);
+        int currentQuantity = item.getQuantity();
+        int newQuantity = currentQuantity - 1;
+        item.setQuantity(newQuantity);
+        //reduce the quantity of the item in the inventory by 1
+
     }
 
 //    @Override

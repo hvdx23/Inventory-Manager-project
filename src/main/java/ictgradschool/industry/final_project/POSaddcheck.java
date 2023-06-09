@@ -23,8 +23,8 @@ public class POSaddcheck {
             if (inventory.getItem(i).getQuantity()>0){
                 Item item=inventory.getItem(i);
                 posInventory.addItemFromInventory(item);
-
-                inventory.getItem(i).setQuantity(inventory.getItem(i).getQuantity()-1);
+                inventory.reduceInventoryQuantity(item);
+//                inventory.getItem(i).setQuantity(inventory.getItem(i).getQuantity()-1);
             }
 
 //            Item item=inventory.getItem(i);
@@ -46,5 +46,14 @@ public class POSaddcheck {
         inventory.saveToCSV(filePath);
         String filePath1 = "./test/pos.csv";
         posInventory.saveToCSV(filePath1);
+    }
+}
+
+
+
+public class POSaddcheck {
+    public static void main(String[] args) {
+
+
     }
 }
