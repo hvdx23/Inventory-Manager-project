@@ -15,7 +15,7 @@ public class ProjectFrame extends JFrame {
         setTitle(ProductManager);
         setBounds(x, y, width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        rootManagerFrame contentpane = new rootManagerFrame();
+        RootManagerFrame contentpane = new RootManagerFrame();
         setContentPane(contentpane);
         pack();
 //        setLocationRelativeTo(null);
@@ -25,7 +25,7 @@ public class ProjectFrame extends JFrame {
 
 
 
-    private void setContentPane(rootManagerFrame contentpane) {
+    private void setContentPane(RootManagerFrame contentpane) {
 
 
     }

@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InventoryManager extends JTable{
+public class InventoryManager extends JPanel{
     private InventoryItems inventoryItems;
     private JTable table;
 

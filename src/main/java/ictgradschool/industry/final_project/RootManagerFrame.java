@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class rootManagerFrame extends JPanel implements ActionListener {
+public class RootManagerFrame extends JPanel implements ActionListener {
 
     private JButton open;
     private JButton create;
@@ -18,7 +18,7 @@ public class rootManagerFrame extends JPanel implements ActionListener {
 
 
 
-    public rootManagerFrame() {
+    public RootManagerFrame() {
         JFrame frame = new JFrame("Product Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 800, 800);
@@ -49,7 +49,7 @@ public class rootManagerFrame extends JPanel implements ActionListener {
         if (e.getSource() == create) {
             final JFileChooser fc = new JFileChooser();
             fc.setCurrentDirectory(new File("../src/main/resources/"));
-            int returnVal =fc.showSaveDialog(rootManagerFrame.this);
+            int returnVal =fc.showSaveDialog(RootManagerFrame.this);
 
 
             if(returnVal==JFileChooser.APPROVE_OPTION) {
@@ -84,7 +84,7 @@ public class rootManagerFrame extends JPanel implements ActionListener {
             final JFileChooser fc = new JFileChooser();
 //            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fc.setCurrentDirectory(new File("../src/main/resources/"));
-            int returnVal=fc.showDialog(rootManagerFrame.this,"Open");
+            int returnVal=fc.showDialog(RootManagerFrame.this,"Open");
 
             if(returnVal==JFileChooser.APPROVE_OPTION){
                 File directory=fc.getCurrentDirectory().getAbsoluteFile();

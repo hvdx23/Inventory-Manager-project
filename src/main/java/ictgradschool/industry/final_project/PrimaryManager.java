@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class PrimaryManager extends rootManagerFrame{
+public class PrimaryManager extends RootManagerFrame {
 
     private JButton inv;
     private JButton pos;
