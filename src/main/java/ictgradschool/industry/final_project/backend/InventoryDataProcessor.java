@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
+//ALL backend functions
 public class InventoryDataProcessor {
     //Read inventory from file
     public List<Item> readInventoryFromFile(String fileName){

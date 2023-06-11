@@ -6,6 +6,7 @@ import javax.swing.*;
 public class ProjectFrame extends JFrame {
     private JFrame frame;
     public ProjectFrame(String ProductManager, int x, int y, int width, int height) {
+        //Main frame for the app
 //        JFrame frame = new JFrame("Product Manager");
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        rootManagerFrame frameContent = new rootManagerFrame();

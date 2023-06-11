@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//POSinventory class is the list of items that are added to the checkout can be used with inventory table model
 public class POSInventory extends AbstractTableModel implements InventoryObserver {
     //POS list for adding items to checkout
     private List<Item> POS = new ArrayList<>();

@@ -19,9 +19,12 @@ public class RootManagerFrame extends JPanel implements ActionListener {
 
 
     public RootManagerFrame() {
+
+        //Create new panel instead of the frame{
         JFrame frame = new JFrame("Product Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 800, 800);
+        //}
 
         JPanel contentpane = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -80,6 +83,8 @@ public class RootManagerFrame extends JPanel implements ActionListener {
 
             // Handle Create button click event
         }
+
+        //Panel for the sanew and open funvctions
         if (e.getSource()== open){
             final JFileChooser fc = new JFileChooser();
 //            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

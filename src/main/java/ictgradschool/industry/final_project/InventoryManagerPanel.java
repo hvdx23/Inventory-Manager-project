@@ -17,6 +17,7 @@ public class InventoryManagerPanel extends JPanel{
     private String filePath;
 
     public InventoryManagerPanel(String filePath){
+        //panel for the inventory manager
         this.filePath=filePath;
 //        frame.setTitle("Inventory Manager");
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

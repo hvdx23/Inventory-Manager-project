@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//inventory table for the inventory(can be reused for the POS inventory)
 public class InventoryTableModel extends AbstractTableModel {
     private List<Item> data = new ArrayList<>();
     private List<InventoryObserver> observers=new ArrayList<>();

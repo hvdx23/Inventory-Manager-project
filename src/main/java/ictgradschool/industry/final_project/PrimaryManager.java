@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+//No need fro Frame. Use a JPanel instead.
 public class PrimaryManager extends RootManagerFrame {
 
     private JButton inv;
