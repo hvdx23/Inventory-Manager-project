@@ -94,8 +94,15 @@ public class RootManagerFrame extends JPanel implements ActionListener {
                 if (nameExtension.equalsIgnoreCase("csv")){
                     JOptionPane.showMessageDialog(this,"You have selected to open "+fileName);
 
-                    InventoryManager inventoryManager=new InventoryManager(file.getAbsolutePath());
-                    PrimaryManager primaryManager=new PrimaryManager(file.getAbsolutePath());
+                    InventoryManagerPanel inventoryManagerPanel=new InventoryManagerPanel(file.getAbsolutePath());
+                    JFrame frame=new JFrame("Inventory Manager");
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setBounds(100,100,800,800);
+                    frame.setContentPane(inventoryManagerPanel);
+                    frame.pack();
+                    frame.setVisible(true);
+
+//                    PrimaryManager primaryManager=new PrimaryManager(file.getAbsolutePath());
 
 
                     System.out.println("FIle valid & opening");

@@ -5,10 +5,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class PointOfSale extends JFrame {
 
-    private InventoryItems inventoryItems;
+    private InventoryTableModel inventoryItems;
     private JTable table;
 
-    public PointOfSale(InventoryItems inventoryItems){
+    public PointOfSale(InventoryTableModel inventoryItems){
         this.inventoryItems=inventoryItems;
         initComponents();
     }

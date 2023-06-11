@@ -52,21 +52,21 @@ public class PrimaryManager extends RootManagerFrame {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e){
-        if (e.getSource() == pos) {
-            PointOfSale pos = new PointOfSale();
-            pos.setVisible(true);
-            this.setVisible(false);
-        }
-        if (e.getSource() == inv) {
+//    @Override
+//    public void actionPerformed(ActionEvent e){
+//        if (e.getSource() == pos) {
+//            PointOfSale pos = new PointOfSale();
+//            pos.setVisible(true);
+//            this.setVisible(false);
+//        }
+//        if (e.getSource() == inv) {
 //            InventoryManager inv = new InventoryManager();
-            inv.setVisible(true);
-            this.setVisible(false);
-        }
-        if (e.getSource() == close) {
-            System.exit(0);
-        }
+//            inv.setVisible(true);
+//            this.setVisible(false);
+//        }
+//        if (e.getSource() == close) {
+//            System.exit(0);
+//        }
 
 
     }
@@ -74,4 +74,4 @@ public class PrimaryManager extends RootManagerFrame {
 
 
 
-}
+

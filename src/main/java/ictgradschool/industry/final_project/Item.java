@@ -2,7 +2,7 @@ package ictgradschool.industry.final_project;
 
 import java.util.Objects;
 
-public class Item extends InventoryItems{
+public class Item {
     private String Identifier;
     private  String Name;
 
@@ -42,27 +42,27 @@ public class Item extends InventoryItems{
 
     public void setIdentifier(String Identifier){
         this.Identifier= Identifier;
-        notifyObservers();
+//        notifyObservers();
     }
 
     public void setName(String Name){
         this.Name= Name;
-        notifyObservers();
+//        notifyObservers();
     }
 
     public void setDescription(String Description){
         this.Description= Description;
-        notifyObservers();
+//        notifyObservers();
     }
 
     public void setPrice(double Price){
         this.Price= Price;
-        notifyObservers();
+//        notifyObservers();
     }
 
     public void setQuantity(int Quantity){
         this.Quantity= Quantity;
-        notifyObservers();
+//        notifyObservers();
     }
 
     //Obj code for getindex method

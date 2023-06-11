@@ -13,7 +13,7 @@ public class POSInventory extends AbstractTableModel implements InventoryObserve
 
     private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
 
-    InventoryItems inventoryItems=new InventoryItems();
+    InventoryTableModel inventoryItems=new InventoryTableModel();
     //loads the inventoryItems from data created in InventoryItems class
     List<Item> data=inventoryItems.getInventoryData();
 
@@ -63,7 +63,7 @@ public class POSInventory extends AbstractTableModel implements InventoryObserve
         return null;
     }
 
-    public void addInventoryItem(InventoryItems inventoryItems) {
+    public void addInventoryItem(InventoryTableModel inventoryItems) {
     }
 
     @Override

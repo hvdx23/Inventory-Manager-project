@@ -1,9 +1,9 @@
 package ictgradschool.industry.final_project;
 
 public class InventoryChangeObserver implements InventoryObserver {
-    private InventoryItems inventory;
+    private InventoryTableModel inventory;
 
-    public InventoryChangeObserver(InventoryItems inventory) {
+    public InventoryChangeObserver(InventoryTableModel inventory) {
         this.inventory = inventory;
     }
     @Override

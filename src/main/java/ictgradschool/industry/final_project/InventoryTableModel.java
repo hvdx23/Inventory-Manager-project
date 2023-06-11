@@ -2,11 +2,9 @@ package ictgradschool.industry.final_project;
 import javax.swing.table.AbstractTableModel;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Observable;
 
-public class InventoryItems extends AbstractTableModel {
+public class InventoryTableModel extends AbstractTableModel {
     private List<Item> data = new ArrayList<>();
     private List<InventoryObserver> observers=new ArrayList<>();
 
@@ -15,23 +13,35 @@ public class InventoryItems extends AbstractTableModel {
 
 
 //load from CSV working
-    public void loadFromCSV(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-//                System.out.println("Values: " + Arrays.toString(values)); // Debug output
 
-                    Item item = createInventoryItemFromValues(values);
-                    addItem(item);
-            }
-//            fireTableStructureChanged();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //register observer here after file is loaded
-
+    public void setInventoryData(List<Item> data) {
+        this.data = data;
+        fireTableDataChanged();
     }
+
+    public void addInventoryData(List<Item> data) {
+        this.data.addAll(data);
+        fireTableDataChanged();
+    }
+
+
+//    public void loadFromCSV(String filePath) {
+//        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                String[] values = line.split(",");
+////                System.out.println("Values: " + Arrays.toString(values)); // Debug output
+//
+//                    Item item = createInventoryItemFromValues(values);
+//                    addItem(item);
+//            }
+////            fireTableStructureChanged();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        //register observer here after file is loaded
+//
+//    }
 
     //savetoCSV working
 

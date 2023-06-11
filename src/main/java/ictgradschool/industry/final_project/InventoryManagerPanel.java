@@ -1,31 +1,35 @@
 package ictgradschool.industry.final_project;
 
+import ictgradschool.industry.final_project.backend.InventoryDataProcessor;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
-public class InventoryManager extends JPanel{
-    private InventoryItems inventoryItems;
+public class InventoryManagerPanel extends JPanel{
+    private InventoryTableModel inventoryTableModel;
     private JTable table;
 
     private JButton addButton;
     private String filePath;
 
-    public InventoryManager(String filePath){
-//        this.filePath=filePath;
+    public InventoryManagerPanel(String filePath){
+        this.filePath=filePath;
 //        frame.setTitle("Inventory Manager");
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        initComponents();
+        initComponents();
 //        pack();
+
 
     }
 
 
 
     private void initComponents(){
-        inventoryItems = new InventoryItems();
+        inventoryTableModel = new InventoryTableModel();
 
         table=new JTable(new DefaultTableModel());
         JScrollPane scrollPane = new JScrollPane(table);
@@ -36,10 +40,12 @@ public class InventoryManager extends JPanel{
         add(scrollPane, BorderLayout.CENTER);
         add(addButton, BorderLayout.SOUTH);
 
-        inventoryItems.loadFromCSV(filePath);
+//        inventoryItems.loadFromCSV(filePath);
+        List<Item> inventoryList =new InventoryDataProcessor().readInventoryFromFile(filePath);
+        inventoryTableModel.setInventoryData(inventoryList);
 
 //        table.setModel(new DefaultTableModel(inventoryItems.getData(), inventoryItems.getColumnNames()));
-        table.setModel(new DefaultTableModel(new Object[][]{}, inventoryItems.getColumnNames()));
+        table.setModel(inventoryTableModel);
 
         setVisible(true);
 
@@ -60,7 +66,7 @@ public class InventoryManager extends JPanel{
 //                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 //                tableModel.addRow(newItem);
 
-                inventoryItems.saveToCSV(filePath);
+                inventoryTableModel.saveToCSV(filePath);
             }
         });
 
