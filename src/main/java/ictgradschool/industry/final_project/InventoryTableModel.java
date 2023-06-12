@@ -47,22 +47,22 @@ public class InventoryTableModel extends AbstractTableModel {
 
     //savetoCSV working
 
-    public void saveToCSV(String filePath) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-            // Write column names
-            bw.write(String.join(",", columnNames));
-            bw.newLine();
-
-            // Write data rows
-            for (Item item : data) {
-                String[] row = new String[]{createValuesFromInventoryItem(item)};
-                bw.write(String.join(",", row));
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void saveToCSV(String filePath) {
+//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+//            // Write column names
+//            bw.write(String.join(",", columnNames));
+//            bw.newLine();
+//
+//            // Write data rows
+//            for (Item item : data) {
+//                String[] row = new String[]{createValuesFromInventoryItem(item)};
+//                bw.write(String.join(",", row));
+//                bw.newLine();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     @Override

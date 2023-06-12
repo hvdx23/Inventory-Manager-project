@@ -9,9 +9,9 @@ public class InventoryChangeObserver implements InventoryObserver {
     @Override
     public void onInventoryChange() {
 
-        String filePath = "testsave.csv";
-        //csv to be saved at filepath
-        inventory.saveToCSV(filePath);
+//        String filePath = "testsave.csv";
+//        //csv to be saved at filepath
+//        inventory.saveToCSV(filePath);
         //savetoCSV() here when inventory changes
 //        System.out.println("Inventory changed");
 //        System.out.println("======================================================================");

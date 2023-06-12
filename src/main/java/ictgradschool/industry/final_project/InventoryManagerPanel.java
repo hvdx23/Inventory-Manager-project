@@ -67,7 +67,7 @@ public class InventoryManagerPanel extends JPanel{
 //                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 //                tableModel.addRow(newItem);
 
-                inventoryTableModel.saveToCSV(filePath);
+//                inventoryTableModel.saveFile(filePath);
             }
         });
 

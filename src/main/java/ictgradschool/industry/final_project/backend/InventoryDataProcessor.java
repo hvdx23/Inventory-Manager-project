@@ -2,9 +2,7 @@ package ictgradschool.industry.final_project.backend;
 
 import ictgradschool.industry.final_project.Item;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 //ALL backend functions
@@ -42,6 +40,32 @@ public class InventoryDataProcessor {
     }
 
     //save file to  csv using buffered reader
+    
+//    public void saveInventoryToFile(String fileName,List<Item> inventoryItems,String[] columnNames
+//        //write to file
+//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+//            // Write column names
+//            bw.write(String.join(",", columnNames));
+//            bw.newLine();
+//
+//            // Write data rows
+//            for (Item item : inventoryItems) {
+//                String row = createValuesFromInventoryItem(item);
+//                bw.write(String.join(",", row));
+//                bw.newLine();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//
+//
+//
+//
+//
+//
+//    }
 
     public void writeinventorytoFile(String fileName,List<Item> inventoryItems){
 
