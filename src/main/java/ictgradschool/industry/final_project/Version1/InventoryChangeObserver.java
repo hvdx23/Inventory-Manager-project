@@ -1,4 +1,4 @@
-package ictgradschool.industry.final_project;
+package ictgradschool.industry.final_project.Version1;
 
 public class InventoryChangeObserver implements InventoryObserver {
     private InventoryTableModel inventory;

@@ -1,4 +1,8 @@
-package ictgradschool.industry.final_project;
+package ictgradschool.industry.final_project.Version2;
+
+import ictgradschool.industry.final_project.Version1.InventoryManagerPanel;
+import ictgradschool.industry.final_project.Version1.PrimaryManager;
+import ictgradschool.industry.final_project.Version1.RootManagerFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,54 +12,44 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class RootManagerFrame extends JPanel implements ActionListener {
-
+public class WelcomeScreenPanel extends JPanel implements ActionListener {
+    JPanel welcomeScreenPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     private JButton open;
+    private JButton close;
     private JButton create;
 
-    private JButton close;
     private JFileChooser fileChooser;
 
 
 
-    public RootManagerFrame() {
+    public WelcomeScreenPanel() {
+        welcomeScreenPanel.setBackground(Color.WHITE);
+        welcomeScreenPanel.setPreferredSize(new Dimension(800, 600));
+        welcomeScreenPanel.setVisible(true);
 
-        //Create new panel instead of the frame{
-        JFrame frame = new JFrame("Product Manager");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, 800, 800);
-        //}
-
-        JPanel contentpane = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-        open = new JButton("Select existing Filestore");
-//        Open.setPreferredSize(new Dimension(100, 30));
-        contentpane.add(open);
+        open= new JButton("Open");
+        welcomeScreenPanel.add(open);
         open.addActionListener(this);
 
-        create = new JButton("Create new Filestore");
-//        Create.setPreferredSize(new Dimension(100, 30));
-        contentpane.add(create);
+        create = new JButton("Create");
+        welcomeScreenPanel.add(create);
         create.addActionListener(this);
 
         close = new JButton("Close");
-        contentpane.add(close);
+        welcomeScreenPanel.add(close);
         close.addActionListener(this);
 
-
-        frame.setContentPane(contentpane);
-        frame.setVisible(true);
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == create) {
             final JFileChooser fc = new JFileChooser();
             fc.setCurrentDirectory(new File("../src/main/resources/"));
-            int returnVal =fc.showSaveDialog(RootManagerFrame.this);
-
-
-            if(returnVal==JFileChooser.APPROVE_OPTION) {
+            int returnVal = fc.showSaveDialog(WelcomeScreenPanel.this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
 
                 if (file.exists()) {
@@ -63,33 +57,28 @@ public class RootManagerFrame extends JPanel implements ActionListener {
                     return;
                 }
                 try {
-                    String fileName=file.getName();
-                    if (!fileName.toLowerCase().endsWith(".csv")){
-                        fileName +=".csv";
+                    String fileName = file.getName();
+                    if (!fileName.toLowerCase().endsWith(".csv")) {
+                        fileName += ".csv";
                     }
-                    file=new File(file.getParentFile(),fileName);
+                    file = new File(file.getParentFile(), fileName);
                     FileWriter writer = new FileWriter(file);
                     writer.close();
                     JOptionPane.showMessageDialog(this, "File created successfully");
-                    PrimaryManager primaryManager=new PrimaryManager(file.getAbsolutePath());
-                }
-                catch (IOException exc) {
+                    PrimaryManager primaryManager = new PrimaryManager(file.getAbsolutePath());
+                } catch (IOException exc) {
                     exc.printStackTrace();
                 }
 
             }
 
-
-
-            // Handle Create button click event
         }
 
-        //Panel for the sanew and open funvctions
         if (e.getSource()== open){
             final JFileChooser fc = new JFileChooser();
 //            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fc.setCurrentDirectory(new File("../src/main/resources/"));
-            int returnVal=fc.showDialog(RootManagerFrame.this,"Open");
+            int returnVal=fc.showDialog(WelcomeScreenPanel.this,"Open");
 
             if(returnVal==JFileChooser.APPROVE_OPTION){
                 File directory=fc.getCurrentDirectory().getAbsoluteFile();
@@ -106,28 +95,14 @@ public class RootManagerFrame extends JPanel implements ActionListener {
                     frame.setContentPane(inventoryManagerPanel);
                     frame.pack();
                     frame.setVisible(true);
-
-//                    PrimaryManager primaryManager=new PrimaryManager(file.getAbsolutePath());
-
-
                     System.out.println("FIle valid & opening");
-
                 }else{
                     System.out.println("File invalid");
                     JOptionPane.showMessageDialog(this,"File invalid");
 
                 }
-
-
                 System.out.println(directory);
             }
-
         }
-        if (e.getSource()== close){
-            System.exit(0);
-        }
-
-
     }
 }
-

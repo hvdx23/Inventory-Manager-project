@@ -1,4 +1,4 @@
-package ictgradschool.industry.final_project;
+package ictgradschool.industry.final_project.Version1;
 
 import ictgradschool.industry.final_project.backend.InventoryDataProcessor;
 

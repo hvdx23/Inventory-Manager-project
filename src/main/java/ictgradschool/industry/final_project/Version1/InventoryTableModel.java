@@ -1,13 +1,12 @@
-package ictgradschool.industry.final_project;
+package ictgradschool.industry.final_project.Version1;
 import javax.swing.table.AbstractTableModel;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 //inventory table for the inventory(can be reused for the POS inventory)
 public class InventoryTableModel extends AbstractTableModel {
-    private List<Item> data = new ArrayList<>();
+    private List<Item> inventoryItems = new ArrayList<>();
     private List<InventoryObserver> observers=new ArrayList<>();
 
     private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
@@ -17,12 +16,12 @@ public class InventoryTableModel extends AbstractTableModel {
 //load from CSV working
 
     public void setInventoryData(List<Item> data) {
-        this.data = data;
+        this.inventoryItems = data;
         fireTableDataChanged();
     }
 
     public void addInventoryData(List<Item> data) {
-        this.data.addAll(data);
+        this.inventoryItems.addAll(data);
         fireTableDataChanged();
     }
 
@@ -67,7 +66,7 @@ public class InventoryTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return data.size();
+        return inventoryItems.size();
     }
 
     @Override
@@ -79,7 +78,7 @@ public class InventoryTableModel extends AbstractTableModel {
     }
 //    @Override
     public int getIndex(Item item){
-        return data.indexOf(data);
+        return inventoryItems.indexOf(inventoryItems);
     }
 
     private Item createInventoryItemFromValues(String[] values) {
@@ -95,8 +94,8 @@ public class InventoryTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (rowIndex < data.size() && columnIndex < getColumnCount()) {
-            Item item = data.get(rowIndex);
+        if (rowIndex < inventoryItems.size() && columnIndex < getColumnCount()) {
+            Item item = inventoryItems.get(rowIndex);
             switch (columnIndex) {
                 case 0:
                     return item.getIdentifier();
@@ -147,8 +146,8 @@ public class InventoryTableModel extends AbstractTableModel {
     //New cod efor setvalue with POS inventory addition and subtraction
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        if (rowIndex >= 0 && rowIndex < data.size() && columnIndex < getColumnCount()) {
-            Item item = data.get(rowIndex);
+        if (rowIndex >= 0 && rowIndex < inventoryItems.size() && columnIndex < getColumnCount()) {
+            Item item = inventoryItems.get(rowIndex);
             switch (columnIndex) {
                 case 0:
                     item.setIdentifier((String) value);
@@ -180,7 +179,7 @@ public class InventoryTableModel extends AbstractTableModel {
     public List<Item> getInventoryData(){
         //gives the data list with only greater than one quantity to POSInventory class
         List<Item> inventoryData=new ArrayList<>();
-        for(Item item:data){
+        for(Item item: inventoryItems){
             if(item.getQuantity()>0){
                 inventoryData.add(item);
             }
@@ -202,7 +201,7 @@ public class InventoryTableModel extends AbstractTableModel {
     }
 
     public int getData() {
-        return data.size();
+        return inventoryItems.size();
     }
 
     public String[] getColumnNames() {
@@ -210,20 +209,20 @@ public class InventoryTableModel extends AbstractTableModel {
     }
 
     public void addItem(Item newItem) {
-        data.add(newItem);
-        fireTableRowsInserted(data.size() - 1, data.size() - 1);
+        inventoryItems.add(newItem);
+        fireTableRowsInserted(inventoryItems.size() - 1, inventoryItems.size() - 1);
         notifyObservers();
     }
 
     public Item getItem(int index){
-        if(index>=0 && index<data.size()){
-            return data.get(index);
+        if(index>=0 && index< inventoryItems.size()){
+            return inventoryItems.get(index);
         }
         return null;
     }
 
     public void reduceInventoryQuantity(String identifier){
-        for (Item item : data) {
+        for (Item item : inventoryItems) {
             if (item.getIdentifier().equals(identifier)) {
                 int currentQuantity = item.getQuantity();
                 int newQuantity = currentQuantity - 1;

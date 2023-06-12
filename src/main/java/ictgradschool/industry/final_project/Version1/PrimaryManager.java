@@ -1,8 +1,7 @@
-package ictgradschool.industry.final_project;
+package ictgradschool.industry.final_project.Version1;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 //No need fro Frame. Use a JPanel instead.
 public class PrimaryManager extends RootManagerFrame {

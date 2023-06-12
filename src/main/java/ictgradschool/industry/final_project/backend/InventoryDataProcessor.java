@@ -1,6 +1,6 @@
 package ictgradschool.industry.final_project.backend;
 
-import ictgradschool.industry.final_project.Item;
+import ictgradschool.industry.final_project.Version1.Item;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -41,31 +41,31 @@ public class InventoryDataProcessor {
 
     //save file to  csv using buffered reader
     
-//    public void saveInventoryToFile(String fileName,List<Item> inventoryItems,String[] columnNames
-//        //write to file
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
-//            // Write column names
-//            bw.write(String.join(",", columnNames));
-//            bw.newLine();
-//
-//            // Write data rows
-//            for (Item item : inventoryItems) {
-//                String row = createValuesFromInventoryItem(item);
-//                bw.write(String.join(",", row));
-//                bw.newLine();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//
-//
-//
-//
-//
-//
-//    }
+    public void saveInventoryToFile(String fileName,List<Item> inventoryItems,String[] columnNames){
+        //write to file
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+            // Write column names
+            bw.write(String.join(",", columnNames));
+            bw.newLine();
+
+            // Write data rows
+            for (Item item : inventoryItems) {
+                String row = createValuesFromInventoryItem(item);
+                bw.write(row);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+    }
 
     public void writeinventorytoFile(String fileName,List<Item> inventoryItems){
 
