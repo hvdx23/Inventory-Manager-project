@@ -11,17 +11,18 @@ public class ProjectFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
-        welcomeScreenPanel=new WelcomeScreenPanel();
+//        welcomeScreenPanel=new WelcomeScreenPanel();
 //        managerPanel=new ManagerPanel();
         setVisible(true);
     }
 
-    public void switchToManagerPanel(){
-        getContentPane().removeAll();
-        add(managerPanel);
-        revalidate();
-        repaint();
-    }
+    //To remove for code celanup
+//    public void switchToManagerPanel(){
+//        getContentPane().removeAll();
+//        add(managerPanel);
+//        revalidate();
+//        repaint();
+//    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

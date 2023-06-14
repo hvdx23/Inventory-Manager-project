@@ -66,6 +66,12 @@ public class InventoryItem {
 //        notifyObservers();
     }
 
+    public int getColumnCount() {
+    InventoryItem item = new InventoryItem();
+
+    return item.getColumnCount();
+
+    }
     //Obj code for getindex method
 
 

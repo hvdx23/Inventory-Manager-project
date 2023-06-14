@@ -95,22 +95,7 @@ public class InventoryTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (rowIndex < inventoryItems.size() && columnIndex < getColumnCount()) {
-            Item item = inventoryItems.get(rowIndex);
-            switch (columnIndex) {
-                case 0:
-                    return item.getIdentifier();
-                case 1:
-                    return item.getName();
-                case 2:
-                    return item.getDescription();
-                case 3:
-                    return item.getPrice();
-                case 4:
-                    return item.getQuantity();
-                default:
-                    return null;
-
-            }
+            return getObject(rowIndex, columnIndex, inventoryItems);
         }
         return null;
     }

@@ -25,6 +25,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
 
 
 
+
     public WelcomeScreenPanel() {
         welcomeScreenPanel.setBackground(Color.WHITE);
         welcomeScreenPanel.setPreferredSize(new Dimension(800, 600));
@@ -38,9 +39,9 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
         add(create);
         create.addActionListener(this);
 
-        close = new JButton("Close");
-        add(close);
-        close.addActionListener(this);
+//        close = new JButton("Close");
+//        add(close);
+//        close.addActionListener(this);
 
 
     }
@@ -60,7 +61,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
                     JOptionPane.showMessageDialog(this, "File created successfully");
                     System.out.println("File created successfully");
                     //Panel creation
-                openManagerPanel(null   );
+                openManagerPanel(filepath);
 //                    ManagerPanel managerPanel = new ManagerPanel();
 //                    JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
 //                    frame.getContentPane().removeAll();
@@ -82,7 +83,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
             if(returnVal==JFileChooser.APPROVE_OPTION){
                 File directory=fc.getCurrentDirectory().getAbsoluteFile();
                 File file=fc.getSelectedFile();
-                String fileName=file.getName();
+                String fileName=file.getAbsolutePath();
                 String nameExtension=fileName.substring(fileName.lastIndexOf(".")+1);
                 if (nameExtension.equalsIgnoreCase("csv")){
                     JOptionPane.showMessageDialog(this,"You have selected to open "+fileName);
@@ -90,7 +91,8 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
 
                     //Below 2 codes to be shifted to InventoryMangerpanel
 //                    List<Item> inventoryItemList=inventoryDataProcessor.readInventoryFromFile(file.getAbsolutePath());
-//                    openManagerPanel(inventoryItemList);
+                    inventoryDataProcessor.readInventoryFromFile(fileName);
+
                     //
                 }else{
                     System.out.println("File invalid");
@@ -110,16 +112,16 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
 
 
 
-//        ManagerPanel managerPanel = new ManagerPanel();
-//        //call initcomponent.
-//        managerPanel.initcomponents(filepath);
-//        //showinitialscreenmethod()
-//
-//        JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
-//        frame.getContentPane().removeAll();
-//        frame.getContentPane().add(managerPanel);
-//        frame.pack();
-//        frame.setVisible(true);
+        ManagerPanel managerPanel = new ManagerPanel();
+        //call initcomponent.
+        managerPanel.initcomponents(filepath);
+        //showinitialscreenmethod()
+
+        JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(managerPanel);
+        frame.pack();
+        frame.setVisible(true);
 
     }
 
