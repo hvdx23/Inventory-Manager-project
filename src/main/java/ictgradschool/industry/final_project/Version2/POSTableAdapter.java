@@ -1,8 +1,12 @@
 package ictgradschool.industry.final_project.Version2;
 
+import ictgradschool.industry.final_project.Version1.Item;
+
 import javax.swing.table.AbstractTableModel;
+import java.util.List;
 
 public class POSTableAdapter extends AbstractTableModel {
+    private List<Item> inventoryItems;
     @Override
     public int getRowCount() {
         return 0;

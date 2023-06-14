@@ -1,6 +1,7 @@
 package ictgradschool.industry.final_project.Version2;
 
 import ictgradschool.industry.final_project.Version1.InventoryManagerPanel;
+import ictgradschool.industry.final_project.Version1.Item;
 import ictgradschool.industry.final_project.Version1.PrimaryManager;
 import ictgradschool.industry.final_project.Version1.RootManagerFrame;
 
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class WelcomeScreenPanel extends JPanel implements ActionListener {
     JPanel welcomeScreenPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -19,6 +21,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
     private JButton create;
 
     private JFileChooser fileChooser;
+    private InventoryDataProcessor inventoryDataProcessor=new InventoryDataProcessor();
 
 
 
@@ -28,16 +31,17 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
         welcomeScreenPanel.setVisible(true);
 
         open= new JButton("Open");
-        welcomeScreenPanel.add(open);
+        add(open);
         open.addActionListener(this);
 
         create = new JButton("Create");
-        welcomeScreenPanel.add(create);
+        add(create);
         create.addActionListener(this);
 
         close = new JButton("Close");
-        welcomeScreenPanel.add(close);
+        add(close);
         close.addActionListener(this);
+
 
     }
 
@@ -50,25 +54,20 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
             fc.setCurrentDirectory(new File("../src/main/resources/"));
             int returnVal = fc.showSaveDialog(WelcomeScreenPanel.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
+            String filepath=fc.getSelectedFile().getAbsolutePath();
+                inventoryDataProcessor.createFile(filepath);
 
-                if (file.exists()) {
-                    JOptionPane.showMessageDialog(this, "File already exists");
-                    return;
-                }
-                try {
-                    String fileName = file.getName();
-                    if (!fileName.toLowerCase().endsWith(".csv")) {
-                        fileName += ".csv";
-                    }
-                    file = new File(file.getParentFile(), fileName);
-                    FileWriter writer = new FileWriter(file);
-                    writer.close();
                     JOptionPane.showMessageDialog(this, "File created successfully");
-                    PrimaryManager primaryManager = new PrimaryManager(file.getAbsolutePath());
-                } catch (IOException exc) {
-                    exc.printStackTrace();
-                }
+                    System.out.println("File created successfully");
+                    //Panel creation
+                openManagerPanel(null   );
+//                    ManagerPanel managerPanel = new ManagerPanel();
+//                    JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
+//                    frame.getContentPane().removeAll();
+//                    frame.getContentPane().add(managerPanel);
+//                    frame.pack();
+//                    frame.setVisible(true);
+
 
             }
 
@@ -87,15 +86,12 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
                 String nameExtension=fileName.substring(fileName.lastIndexOf(".")+1);
                 if (nameExtension.equalsIgnoreCase("csv")){
                     JOptionPane.showMessageDialog(this,"You have selected to open "+fileName);
-
-                    InventoryManagerPanel inventoryManagerPanel=new InventoryManagerPanel(file.getAbsolutePath());
-                    JFrame frame=new JFrame("Inventory Manager");
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setBounds(100,100,800,800);
-                    frame.setContentPane(inventoryManagerPanel);
-                    frame.pack();
-                    frame.setVisible(true);
                     System.out.println("FIle valid & opening");
+
+                    //Below 2 codes to be shifted to InventoryMangerpanel
+//                    List<Item> inventoryItemList=inventoryDataProcessor.readInventoryFromFile(file.getAbsolutePath());
+//                    openManagerPanel(inventoryItemList);
+                    //
                 }else{
                     System.out.println("File invalid");
                     JOptionPane.showMessageDialog(this,"File invalid");
@@ -104,5 +100,28 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
                 System.out.println(directory);
             }
         }
+
+        if (e.getSource()== close){
+            System.exit(0);
+        }
     }
+
+    private void openManagerPanel(String filepath){
+
+
+
+//        ManagerPanel managerPanel = new ManagerPanel();
+//        //call initcomponent.
+//        managerPanel.initcomponents(filepath);
+//        //showinitialscreenmethod()
+//
+//        JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
+//        frame.getContentPane().removeAll();
+//        frame.getContentPane().add(managerPanel);
+//        frame.pack();
+//        frame.setVisible(true);
+
+    }
+
+
 }
