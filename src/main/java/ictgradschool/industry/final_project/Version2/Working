@@ -1,0 +1,265 @@
+panel file path for managerapnel
+
+Jbutton click load items & inventorylist
+
+model set for the table adaptor.
+
+//import javax.swing.*;
+//import java.awt.*;
+//
+//public class panelCheck extends JPanel {
+//
+//    private JPanel managerPanel;
+//    private JPanel posPanel;
+//    private JPanel inventoryPanel;
+//    private JButton posButton;
+//    private JButton inventoryButton;
+//    private JButton backButton;
+//    private JButton addToCartButton;
+//    private JButton removeFromCartButton;
+//    private JButton checkoutButton;
+//    private JTable inventoryTable;
+//    private JTable posTable;
+//
+//    public panelCheck() {
+//        initComponents();
+//        showManagerPanel();
+//    }
+//
+//    public void initComponents() {
+//        managerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+//        posPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+//        inventoryPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+//
+//        // managerPanel
+//        managerPanel.setBackground(Color.WHITE);
+//        posButton = new JButton("POS");
+//        managerPanel.add(posButton);
+//        inventoryButton = new JButton("Inventory Manager");
+//        managerPanel.add(inventoryButton);
+//        backButton = new JButton("Back");
+//        managerPanel.add(backButton);
+//
+//        // posPanel
+//        posPanel.setBackground(Color.WHITE);
+//        addToCartButton = new JButton("Add to cart");
+//        posPanel.add(addToCartButton);
+//        removeFromCartButton = new JButton("Remove from cart");
+//        posPanel.add(removeFromCartButton);
+//        checkoutButton = new JButton("Checkout");
+//        posPanel.add(checkoutButton);
+//        posTable = new JTable();
+//        posPanel.add(posTable);
+//
+//        // inventoryPanel
+//        inventoryPanel.setBackground(Color.WHITE);
+//        inventoryTable = new JTable();
+//        inventoryPanel.add(inventoryTable);
+//
+//        // Set initial visibility
+//        managerPanel.setVisible(false);
+//        posPanel.setVisible(false);
+//        inventoryPanel.setVisible(false);
+//
+//        // Add panels to this panel (panelCheck)
+//        setLayout(new CardLayout());
+//        add(managerPanel, "manager");
+//        add(posPanel, "pos");
+//        add(inventoryPanel, "inventory");
+//    }
+//
+//    public void showManagerPanel() {
+//        JFrame frame = new JFrame("Manager Panel");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.getContentPane().add(this); // Add this panel (panelCheck) to the frame
+//        setPreferredSize(new Dimension(800, 600));
+//        frame.pack();
+//        frame.setVisible(true);
+//        showPanel("manager"); // Show the managerPanel
+//    }
+//
+//    public void showPanel(String panelName) {
+//        CardLayout layout = (CardLayout) getLayout();
+//        layout.show(this, panelName);
+//    }
+//
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            panelCheck panel = new panelCheck();
+//        });
+//    }
+//}
+
+//
+//import javax.swing.*;
+//import java.awt.*;
+//
+//public class panelCheck extends JPanel {
+//
+//    private JPanel managerPanel;
+//    private JPanel posPanel;
+//    private JPanel inventoryPanel;
+//    private JButton posButton;
+//    private JButton inventoryButton;
+//    private JButton backButton;
+//    private JButton addToCartButton;
+//    private JButton removeFromCartButton;
+//    private JButton checkoutButton;
+//    private JTable inventoryTable;
+//    private JTable posTable;
+//
+//    public panelCheck() {
+//        initComponents();
+//        showManagerPanel();
+//    }
+//
+//    public void initComponents() {
+//        managerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+//        posPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+//        inventoryPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+//
+//        // managerPanel
+//        managerPanel.setBackground(Color.WHITE);
+//        posButton = new JButton("POS");
+//        managerPanel.add(posButton);
+//        inventoryButton = new JButton("Inventory Manager");
+//        managerPanel.add(inventoryButton);
+//        backButton = new JButton("Back");
+//        managerPanel.add(backButton);
+//
+//        // posPanel
+//        posPanel.setBackground(Color.WHITE);
+//        addToCartButton = new JButton("Add to cart");
+//        posPanel.add(addToCartButton);
+//        removeFromCartButton = new JButton("Remove from cart");
+//        posPanel.add(removeFromCartButton);
+//        checkoutButton = new JButton("Checkout");
+//        posPanel.add(checkoutButton);
+//        posTable = new JTable();
+//        posPanel.add(posTable);
+//
+//        // inventoryPanel
+//        inventoryPanel.setBackground(Color.WHITE);
+//        inventoryTable = new JTable();
+//        inventoryPanel.add(inventoryTable);
+//
+//        // Set initial visibility
+//        managerPanel.setVisible(false);
+//        posPanel.setVisible(false);
+//        inventoryPanel.setVisible(false);
+//
+//        // Add panels to this panel (panelCheck)
+//        setLayout(new CardLayout());
+//        add(managerPanel, "manager");
+//        add(posPanel, "pos");
+//        add(inventoryPanel, "inventory");
+//    }
+//
+//    public void showManagerPanel() {
+//        JFrame frame = new JFrame("Manager Panel");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.getContentPane().add(this); // Add this panel (panelCheck) to the frame
+//        setPreferredSize(new Dimension(800, 600));
+//        frame.pack();
+//        frame.setVisible(true);
+//        showPanel("pos"); // Show the posPanel
+//    }
+//
+//    public void showPanel(String panelName) {
+//        CardLayout layout = (CardLayout) getLayout();
+//        layout.show(this, panelName);
+//    }
+//
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            panelCheck panel = new panelCheck();
+//        });
+//    }
+//}
+
+
+import javax.swing.*;
+import java.awt.*;
+
+public class panelCheck extends JPanel {
+
+    private JPanel managerPanel;
+    private JPanel posPanel;
+    private JPanel inventoryPanel;
+    private JButton posButton;
+    private JButton inventoryButton;
+    private JButton backButton;
+    private JButton addToCartButton;
+    private JButton removeFromCartButton;
+    private JButton checkoutButton;
+    private JTable inventoryTable;
+    private JTable posTable;
+
+    public panelCheck() {
+        initComponents();
+        showManagerPanel();
+    }
+
+    public void initComponents() {
+        managerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        posPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        inventoryPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        // managerPanel
+        managerPanel.setBackground(Color.WHITE);
+        posButton = new JButton("POS");
+        managerPanel.add(posButton);
+        inventoryButton = new JButton("Inventory Manager");
+        managerPanel.add(inventoryButton);
+        backButton = new JButton("Back");
+        managerPanel.add(backButton);
+
+        // posPanel
+        posPanel.setBackground(Color.WHITE);
+        addToCartButton = new JButton("Add to cart");
+        posPanel.add(addToCartButton);
+        removeFromCartButton = new JButton("Remove from cart");
+        posPanel.add(removeFromCartButton);
+        checkoutButton = new JButton("Checkout");
+        posPanel.add(checkoutButton);
+        posTable = new JTable();
+        posPanel.add(posTable);
+
+        // inventoryPanel
+        inventoryPanel.setBackground(Color.WHITE);
+        inventoryTable = new JTable();
+        inventoryPanel.add(inventoryTable);
+
+        // Set initial visibility
+        managerPanel.setVisible(false);
+        posPanel.setVisible(false);
+        inventoryPanel.setVisible(false);
+
+        // Add panels to this panel (panelCheck)
+        setLayout(new CardLayout());
+        add(managerPanel, "manager");
+        add(posPanel, "pos");
+        add(inventoryPanel, "inventory");
+    }
+
+    public void showManagerPanel() {
+        JFrame frame = new JFrame("Manager Panel");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(this); // Add this panel (panelCheck) to the frame
+        setPreferredSize(new Dimension(800, 600));
+        frame.pack();
+        frame.setVisible(true);
+        showPanel("inventory"); // Show the inventoryPanel
+    }
+
+    public void showPanel(String panelName) {
+        CardLayout layout = (CardLayout) getLayout();
+        layout.show(this, panelName);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            panelCheck panel = new panelCheck();
+        });
+    }
+}
