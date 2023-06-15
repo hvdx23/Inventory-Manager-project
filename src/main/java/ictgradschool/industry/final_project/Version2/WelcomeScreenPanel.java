@@ -91,6 +91,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
                     //Below 2 codes to be shifted to InventoryMangerpanel
 //                    List<Item> inventoryItemList=inventoryDataProcessor.readInventoryFromFile(file.getAbsolutePath());
                     inventoryDataProcessor.readInventoryFromFile(fileName);
+                    openManagerPanel(fileName);
 
                     //
                 }else{
@@ -107,13 +108,14 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
         }
     }
 
+    //asper cameron code
     private void openManagerPanel(String filepath){
 
 
 
-        ManagerPanel managerPanel = new ManagerPanel();
+        ManagerPanel managerPanel = new ManagerPanel(filepath);
         //call initcomponent.
-        managerPanel.initcomponents(filepath);
+        managerPanel.initcomponents();
         //showinitialscreenmethod()
 
         this.frame.getContentPane().removeAll();

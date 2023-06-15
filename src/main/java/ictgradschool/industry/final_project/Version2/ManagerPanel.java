@@ -19,11 +19,16 @@ public class ManagerPanel extends JPanel implements ActionListener {
     private String filepath;
     private JFileChooser fileChooser;
     private InventoryDataProcessor inventoryDataProcessor=new InventoryDataProcessor();
+    private ProjectFrame frame;
 
-    public ManagerPanel() {
+    public ManagerPanel(String filepath) {
+
+        this.filepath=filepath;
+
+
     }
 
-    public void initcomponents(String filepath){
+    public void initcomponents(){
 
 
         //set flowlayout afterwards.
@@ -88,13 +93,13 @@ public class ManagerPanel extends JPanel implements ActionListener {
 //        frame.setVisible(true);
 
         POSpanel pospanel=new POSpanel();
-        this.frame = frame;
+//        this.frame = frame;
         frame.getContentPane().removeAll();
-        frame.getContentPane().add(this);
+        frame.getContentPane().add(pospanel);
     }
 
     public void showinventorymanagerpanel(){
-        InventoryManagerpanel inventorymanagerpanel=new InventoryManagerpanel();
+        InventoryManagerpanel inventorymanagerpanel=new InventoryManagerpanel(filepath);
         inventorymanagerpanel.initcomponents();
         JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
         frame.getContentPane().removeAll();
@@ -112,7 +117,7 @@ public class ManagerPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==POS){
-            showPOSPanel();
+            showPOSPanel(this.frame);
         }
         if(e.getSource()==Inv){
             showinventorymanagerpanel();

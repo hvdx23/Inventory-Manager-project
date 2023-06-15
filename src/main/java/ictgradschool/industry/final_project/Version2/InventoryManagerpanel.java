@@ -21,11 +21,27 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
     private JButton sort;
     // table adaptor private JTable inventorytable;
 
+    private String filepath;
+
+    JTextField identifierTextfield=null;
+    private InventoryDataProcessor inventoryDataProcessor=new InventoryDataProcessor();
+
+    InventoryTableAdaptor tablemodel = null;
+
+    JTable inventorytable=null;
+
+    public InventoryManagerpanel(String filepath) {
+
+        this.filepath=filepath;
+
+    }
+
 
 
 
 
     public void initcomponents() {
+
         JPanel  buttonpanel=new JPanel();
 
         setBackground(Color.WHITE);
@@ -53,7 +69,7 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
         textfieldpanel.setLayout(new GridLayout(5,2));
         JLabel identifierLabel=new JLabel("Identifier");
         textfieldpanel.add(identifierLabel);
-        JTextField identifierTextfield=new JTextField();
+        identifierTextfield=new JTextField();
         textfieldpanel.add(identifierTextfield);
         JLabel nameLabel=new JLabel("Name");
         textfieldpanel.add(nameLabel);
@@ -71,21 +87,41 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
         textfieldpanel.add(quantityLabel);
         JTextField quantityTextfield=new JTextField();
         textfieldpanel.add(quantityTextfield);
-        add(textfieldpanel,BorderLayout.EAST);
+        add(textfieldpanel,BorderLayout.SOUTH);
 
 
+        JPanel inventorytablepanel=new JPanel();
+        JTable inventorytable=new JTable();
+        List<InventoryItem> inventoryItems= inventoryDataProcessor.readInventoryFromFile(filepath);
+        if (inventoryItems==null){
+            inventoryItems=new ArrayList<>();
+        }
+        tablemodel = new InventoryTableAdaptor(inventoryItems);
+        inventorytable.setModel(tablemodel);
+        add(inventorytable,BorderLayout.NORTH);
 
         //tableadaptor table display
-//        List<Item> inventoryItems=new ArrayList<>(inventoryItems);
-//        InventoryTableAdaptor tablemodel = new InventoryTableAdaptor();
-//        inventorytable = new JTable();
-//        add(inventorytable);
+
+
+
+
 
 
     }
     @Override
     public void actionPerformed (ActionEvent e){
         if (e.getSource() == add) {
+            //get values from all text fields
+            InventoryItem inventoryItem=new InventoryItem();
+            inventoryItem.setIdentifier(identifierTextfield.getText());
+            //for double use double.parseDouble
+            //for int use Integer.parseInt
+            //create new item
+            //set values
+
+            tablemodel.addInventoryData(inventoryItem);
+
+            //if identifier exists in table, get the inventory item and update the quantity value. tablemodel.firetablechanged();
 
         }
         if(e.getSource()==delete){

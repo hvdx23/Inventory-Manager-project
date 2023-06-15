@@ -1,6 +1,6 @@
 package ictgradschool.industry.final_project.Version2;
 
-import ictgradschool.industry.final_project.Version1.Item;
+
 
 import java.io.*;
 import java.util.LinkedList;
@@ -27,8 +27,8 @@ public class InventoryDataProcessor {
             exc.printStackTrace();
         }
     }
-    public List<Item> readInventoryFromFile(String fileName){
-        List<Item> inventoryList=new LinkedList<>();
+    public List<InventoryItem> readInventoryFromFile(String fileName){
+        List<InventoryItem> inventoryList=new LinkedList<>();
         BufferedReader br=null;
         try  {
             br = new BufferedReader(new FileReader(fileName));
@@ -37,7 +37,7 @@ public class InventoryDataProcessor {
                 String[] values = line.split(",");
 //                System.out.println("Values: " + Arrays.toString(values)); // Debug output
 
-                Item item = createInventoryItemFromValues(values);
+                InventoryItem item = createInventoryItemFromValues(values);
                 inventoryList.add(item);
             }
 //            fireTableStructureChanged();
@@ -57,7 +57,7 @@ public class InventoryDataProcessor {
         }
         return inventoryList;
     }
-    public void saveInventoryToFile(String fileName,List<Item> inventoryItems,String[] columnNames){
+    public void saveInventoryToFile(String fileName,List<InventoryItem> inventoryItems,String[] columnNames){
         //write to file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             // Write column names
@@ -65,7 +65,7 @@ public class InventoryDataProcessor {
             bw.newLine();
 
             // Write data rows
-            for (Item item : inventoryItems) {
+            for (InventoryItem item : inventoryItems) {
                 String row = createValuesFromInventoryItem(item);
                 bw.write(row);
                 bw.newLine();
@@ -74,16 +74,16 @@ public class InventoryDataProcessor {
             e.printStackTrace();
         }
     }
-    private Item createInventoryItemFromValues(String[] values) {
+    private InventoryItem createInventoryItemFromValues(String[] values) {
         String identifier = values[0];
         String name = values[1];
         String description = values[2];
         double price = Double.parseDouble(values[3]);
         int quantity = Integer.parseInt(values[4]);
-        return new Item(identifier, name, description, price, quantity);
+        return new InventoryItem(identifier, name, description, price, quantity);
     }
 
-    private String createValuesFromInventoryItem(Item item) {
+    private String createValuesFromInventoryItem(InventoryItem item) {
         String[] values = new String[5];
         values[0] = item.getIdentifier();
         values[1] = item.getName();
@@ -93,22 +93,22 @@ public class InventoryDataProcessor {
         return String.join(",", values);
     }
 
-    public void addInventoryItem(String fileName, Item item){
-        List<Item> inventoryList=readInventoryFromFile(fileName);
+    public void addInventoryItem(String fileName, InventoryItem item){
+        List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
         inventoryList.add(item);
         saveInventoryToFile(fileName,inventoryList,new String[]{"Identifier","Name","Description","Price","Quantity"});
 
     }
 
-    public  void deleteInventoryItem(String fileName,Item item){
-        List<Item> inventoryList=readInventoryFromFile(fileName);
+    public  void deleteInventoryItem(String fileName,InventoryItem item){
+        List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
         inventoryList.remove(item);
         saveInventoryToFile(fileName,inventoryList,new String[]{"Identifier","Name","Description","Price","Quantity"});
     }
 
-    public void updateInventoryItem(String fileName,Item item){
-        List<Item> inventoryList=readInventoryFromFile(fileName);
-        for(Item i:inventoryList){
+    public void updateInventoryItem(String fileName,InventoryItem item){
+        List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
+        for(InventoryItem i:inventoryList){
             if(i.getIdentifier().equals(item.getIdentifier())){
                 i.setName(item.getName());
                 i.setDescription(item.getDescription());
@@ -120,8 +120,8 @@ public class InventoryDataProcessor {
     }
 
     public void searchInventoryItem(String fileName,String search){
-        List<Item> inventoryList=readInventoryFromFile(fileName);
-        for(Item i:inventoryList){
+        List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
+        for(InventoryItem i:inventoryList){
             if(i.getIdentifier().equals(search)){
                 System.out.println(i);
             }
@@ -129,7 +129,7 @@ public class InventoryDataProcessor {
     }
 
     public void sortInventoryItem(String fileName){
-        List<Item> inventoryList=readInventoryFromFile(fileName);
+        List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
         inventoryList.sort((o1, o2) -> {
             if(o1.getPrice()>o2.getPrice()){
                 return 1;
@@ -143,28 +143,28 @@ public class InventoryDataProcessor {
         });
     }
 
-    public void posAddItem(String fileName,Item item){
-        List<Item> inventoryList=readInventoryFromFile(fileName);
-        for(Item i:inventoryList){
+    public void posAddItem(String fileName,InventoryItem item){
+        List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
+        for(InventoryItem i:inventoryList){
             if(i.getIdentifier().equals(item.getIdentifier())){
                 i.setQuantity(i.getQuantity()-1);
             }
         }
     }
 
-    public void posDeleteItem(String fileName,Item item){
-        List<Item> inventoryList=readInventoryFromFile(fileName);
-        for(Item i:inventoryList){
+    public void posDeleteItem(String fileName,InventoryItem item){
+        List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
+        for(InventoryItem i:inventoryList){
             if(i.getIdentifier().equals(item.getIdentifier())){
                 i.setQuantity(i.getQuantity()+1);
             }
         }
     }
 
-    public void checkout(String fileName,List<Item> items){
-        List<Item> inventoryList=readInventoryFromFile(fileName);
-        for(Item i:items){
-            for(Item j:inventoryList){
+    public void checkout(String fileName,List<InventoryItem> items){
+        List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
+        for(InventoryItem i:items){
+            for(InventoryItem j:inventoryList){
                 if(i.getIdentifier().equals(j.getIdentifier())){
                     j.setQuantity(j.getQuantity()-1);
                 }

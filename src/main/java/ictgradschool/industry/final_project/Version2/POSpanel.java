@@ -11,6 +11,8 @@ public class POSpanel extends JPanel implements ActionListener {
     private JButton addtocart;
     private JButton removefromcart;
     private JButton checkout;
+
+
 //    private JTable postable;
 
 
@@ -50,6 +52,20 @@ public class POSpanel extends JPanel implements ActionListener {
 
         }
 
+
+    }
+
+    private void openPOSPanel(POSpanel frame,String filepath){
+
+
+
+//        POSpanel pospanel=new POSpanel();
+//
+//        this.frame.getContentPane().removeAll();
+////        frame.getContentPane().removeAll();
+//        this.frame.getContentPane().add(managerPanel);
+//        this.frame.pack();
+//        this.frame.setVisible(true);
 
     }
 }

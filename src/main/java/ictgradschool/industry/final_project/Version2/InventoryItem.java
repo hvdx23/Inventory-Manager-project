@@ -11,8 +11,10 @@ public class InventoryItem {
     private  double Price;
 
     private  int Quantity;
+    public InventoryItem(){
 
-    public void Item(String Identifier, String Name, String Description, double Price, int Quantity) {
+    }
+    public InventoryItem(String Identifier, String Name, String Description, double Price, int Quantity) {
         // Made Item return void to fix error
         this.Identifier = Identifier;
         this.Name = Name;
@@ -67,9 +69,9 @@ public class InventoryItem {
     }
 
     public int getColumnCount() {
-    InventoryItem item = new InventoryItem();
 
-    return item.getColumnCount();
+
+    return 0;
 
     }
     //Obj code for getindex method
