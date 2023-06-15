@@ -1,15 +1,16 @@
 package ictgradschool.industry.final_project.Version2;
 
-import ictgradschool.industry.final_project.Version1.Item;
+//import ictgradschool.industry.final_project.Version1.Item;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 //get methods from version 1 tableadaptor
 public class InventoryTableAdaptor extends AbstractTableModel {
-    List<Item> inventoryItems;
+    private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
+    List<InventoryItem> inventoryItems;
 
-    public InventoryTableAdaptor(List<Item> inventoryItems) {
+    public InventoryTableAdaptor(List<InventoryItem> inventoryItems) {
         this.inventoryItems = inventoryItems;
     }
 
@@ -20,7 +21,10 @@ public class InventoryTableAdaptor extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return inventoryItems.getColumnCount();
+        if (columnNames != null) {
+            return columnNames.length;
+        }
+        return 0;
     }
 
     @Override
@@ -28,7 +32,7 @@ public class InventoryTableAdaptor extends AbstractTableModel {
         return getObject(rowIndex, columnIndex, inventoryItems);
     }
 
-    private Object getObject(int rowIndex, int columnIndex, List<Item> inventoryItems) {
+    private Object getObject(int rowIndex, int columnIndex, List<InventoryItem> inventoryItems) {
         return null;
     }
 

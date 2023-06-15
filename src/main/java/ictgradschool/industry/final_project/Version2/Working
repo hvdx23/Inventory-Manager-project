@@ -2,6 +2,8 @@ panel file path for managerapnel
 
 Jbutton click load items & inventorylist
 
+welcomescreenpanel the code for panel switching
+
 model set for the table adaptor.
 
 //import javax.swing.*;

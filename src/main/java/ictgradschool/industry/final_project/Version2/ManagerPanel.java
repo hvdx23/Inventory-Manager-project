@@ -70,23 +70,27 @@ public class ManagerPanel extends JPanel implements ActionListener {
 //        POSpanel.setVisible(false);
 //        inventorypanel.setVisible(true);
 //    }
-    public void showPOSPanel(){
+    public void showPOSPanel(ProjectFrame frame){
         //create new instance
-        POSpanel pospanel=new POSpanel();
-        //calls initcomponents inside pospanel
-        pospanel.initcomponents();
-        //set visibility for POS panel only
-//        ManagerPanel.setVisible(false);
-//        POSpanel.setVisible(true);
-//        inventorypanel.setVisible(false);
-        //How to get parent frame from JPanel in java.
-        JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
-        //no change for 148-151
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(pospanel);
-        frame.pack();
-        frame.setVisible(true);
+//        POSpanel pospanel=new POSpanel();
+//        //calls initcomponents inside pospanel
+//        pospanel.initcomponents();
+//        //set visibility for POS panel only
+////        ManagerPanel.setVisible(false);
+////        POSpanel.setVisible(true);
+////        inventorypanel.setVisible(false);
+//        //How to get parent frame from JPanel in java.
+//        JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
+//        //no change for 148-151
+//        frame.getContentPane().removeAll();
+//        frame.getContentPane().add(pospanel);
+//        frame.pack();
+//        frame.setVisible(true);
 
+        POSpanel pospanel=new POSpanel();
+        this.frame = frame;
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(this);
     }
 
     public void showinventorymanagerpanel(){

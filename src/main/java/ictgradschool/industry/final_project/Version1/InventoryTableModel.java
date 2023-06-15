@@ -9,7 +9,7 @@ public class InventoryTableModel extends AbstractTableModel {
     private List<Item> inventoryItems = new ArrayList<>();
     private List<InventoryObserver> observers=new ArrayList<>();
 
-    private String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
+    private final String[] columnNames={"Identifier","Name","Description", "Price", "Quantity"};
 
 
 
@@ -98,6 +98,18 @@ public class InventoryTableModel extends AbstractTableModel {
             return getObject(rowIndex, columnIndex, inventoryItems);
         }
         return null;
+    }
+
+    private Object getObject(int rowIndex, int columnIndex, List<Item> inventoryItems) {
+        return switch (columnIndex) {
+            case 0 -> inventoryItems.get(rowIndex).getIdentifier();
+            case 1 -> inventoryItems.get(rowIndex).getName();
+            case 2 -> inventoryItems.get(rowIndex).getDescription();
+            case 3 -> inventoryItems.get(rowIndex).getPrice();
+            case 4 -> inventoryItems.get(rowIndex).getQuantity();
+            default -> null;
+        };
+
     }
 
 

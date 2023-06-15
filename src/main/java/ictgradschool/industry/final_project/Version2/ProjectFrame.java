@@ -29,8 +29,8 @@ public class ProjectFrame extends JFrame {
             @Override
             public void run() {
                 ProjectFrame frame = new ProjectFrame();
-                WelcomeScreenPanel welcomeScreenPanel = new WelcomeScreenPanel();
-                frame.add(welcomeScreenPanel);
+                WelcomeScreenPanel welcomeScreenPanel = new WelcomeScreenPanel(frame);
+//                frame.add(welcomeScreenPanel);
                 frame.setVisible(true);
             }
         });

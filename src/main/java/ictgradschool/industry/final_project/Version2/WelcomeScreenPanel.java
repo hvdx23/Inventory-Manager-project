@@ -1,20 +1,13 @@
 package ictgradschool.industry.final_project.Version2;
 
-import ictgradschool.industry.final_project.Version1.InventoryManagerPanel;
-import ictgradschool.industry.final_project.Version1.Item;
-import ictgradschool.industry.final_project.Version1.PrimaryManager;
-import ictgradschool.industry.final_project.Version1.RootManagerFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 
 public class WelcomeScreenPanel extends JPanel implements ActionListener {
+    private final ProjectFrame frame;
     JPanel welcomeScreenPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     private JButton open;
     private JButton close;
@@ -26,7 +19,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
 
 
 
-    public WelcomeScreenPanel() {
+    public WelcomeScreenPanel(ProjectFrame frame) {
         welcomeScreenPanel.setBackground(Color.WHITE);
         welcomeScreenPanel.setPreferredSize(new Dimension(800, 600));
         welcomeScreenPanel.setVisible(true);
@@ -38,6 +31,12 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
         create = new JButton("Create");
         add(create);
         create.addActionListener(this);
+
+
+        //cameron code
+        this.frame = frame;
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(this);
 
 //        close = new JButton("Close");
 //        add(close);
@@ -117,11 +116,11 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
         managerPanel.initcomponents(filepath);
         //showinitialscreenmethod()
 
-        JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(managerPanel);
-        frame.pack();
-        frame.setVisible(true);
+        this.frame.getContentPane().removeAll();
+//        frame.getContentPane().removeAll();
+        this.frame.getContentPane().add(managerPanel);
+        this.frame.pack();
+        this.frame.setVisible(true);
 
     }
 
