@@ -184,11 +184,10 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
                 int selectedrow=inventorytable.getSelectedRow();
                 if(selectedrow>=0){
                     InventoryItem selectedItem=tablemodel.getInventoryItem(selectedrow);
-//                    inventoryDataProcessor.deleteInventoryItem(filepath,selectedItem);
                     //setInventoryItems method not in classes
                     tablemodel.deleteInventoryData(selectedItem);
                     inventoryDataProcessor.saveInventoryToFile(filepath, tablemodel.getInventoryItems());
-//                    tablemodel.setInventoryItems(inventoryDataProcessor.readInventoryFromFile(filepath));
+
                 }
 
             }
@@ -199,9 +198,28 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
                 //firetable changed
                 //get all inventory from data processor
                 //save to file
+                int selectedrow=inventorytable.getSelectedRow();
+                if(selectedrow>=0){
+                    InventoryItem selectedItem=tablemodel.getInventoryItem(selectedrow);
+                    selectedItem.setName(nameTextfield.getText());
+                    selectedItem.setDescription(descriptionTextfield.getText());
+                    selectedItem.setPrice(Double.parseDouble(priceTextfield.getText()));
+                    selectedItem.setQuantity(Integer.parseInt(quantityTextfield.getText()));
+                    tablemodel.fireTableDataChanged();
+//                    inventoryDataProcessor.saveInventoryToFile(filepath, tablemodel.getInventoryItems());
+                    inventorytable.clearSelection();
+                    identifierTextfield.setText("");
+                    nameTextfield.setText("");
+                    descriptionTextfield.setText("");
+                    priceTextfield.setText("");
+                    quantityTextfield.setText("");
+
+
+                }
 
             }
             if (e.getSource() == search) {
+
 
             }
             if (e.getSource() == sort) {
@@ -211,18 +229,34 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
         }
 
+//Delete if other method not working
+//    @Override
+//    public void valueChanged(ListSelectionEvent e) {
+//        int row=e.getFirstIndex();
+//        if(row!=-1){
+//            InventoryItem selectedItem=tablemodel.getInventoryItem(row);
+//            identifierTextfield.setText(selectedItem.getIdentifier());
+//            nameTextfield.setText(selectedItem.getName());
+//            descriptionTextfield.setText(selectedItem.getDescription());
+//            priceTextfield.setText(String.valueOf(selectedItem.getPrice()));
+//            quantityTextfield.setText(String.valueOf(selectedItem.getQuantity()));
+//        }
+//    }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        int row=e.getFirstIndex();
-        if(row>=0){
-            InventoryItem selectedItem=tablemodel.getInventoryItem(row);
-            identifierTextfield.setText(selectedItem.getIdentifier());
-            nameTextfield.setText(selectedItem.getName());
-            descriptionTextfield.setText(selectedItem.getDescription());
-            priceTextfield.setText(String.valueOf(selectedItem.getPrice()));
-            quantityTextfield.setText(String.valueOf(selectedItem.getQuantity()));
+        if (!e.getValueIsAdjusting()) {
+            int selectedRow = inventorytable.getSelectedRow();
+            if (selectedRow != -1) {
+                InventoryItem selectedItem = tablemodel.getInventoryItem(selectedRow);
+                identifierTextfield.setText(selectedItem.getIdentifier());
+                nameTextfield.setText(selectedItem.getName());
+                descriptionTextfield.setText(selectedItem.getDescription());
+                priceTextfield.setText(String.valueOf(selectedItem.getPrice()));
+                quantityTextfield.setText(String.valueOf(selectedItem.getQuantity()));
+            }
         }
     }
+
 }
 
