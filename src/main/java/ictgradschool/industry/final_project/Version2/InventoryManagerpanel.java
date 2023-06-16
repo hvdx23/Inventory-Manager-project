@@ -151,16 +151,11 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
                 return;
             }
 
-            //for double use double.parseDouble
-            //for int use Integer.parseInt
-            //create new item
-            //set values
+
             boolean itemexists = false;
 
             for (int i = 0; i < tablemodel.getRowCount(); i++) {
                 if (tablemodel.getValueAt(i, 0).equals(inventoryItem.getIdentifier())) {
-
-
                     itemexists = true;
                     break;
 
@@ -171,6 +166,12 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
             if (!itemexists) {
                 tablemodel.addInventoryData(inventoryItem);
                 inventoryDataProcessor.saveInventoryToFile(filepath, tablemodel.getInventoryItems());
+                //delete teh item details in text field
+                identifierTextfield.setText("");
+                nameTextfield.setText("");
+                descriptionTextfield.setText("");
+                priceTextfield.setText("");
+                quantityTextfield.setText("");
 
             } else {
                 JOptionPane.showMessageDialog(this, "Item already exists");
@@ -206,7 +207,7 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
                     selectedItem.setPrice(Double.parseDouble(priceTextfield.getText()));
                     selectedItem.setQuantity(Integer.parseInt(quantityTextfield.getText()));
                     tablemodel.fireTableDataChanged();
-//                    inventoryDataProcessor.saveInventoryToFile(filepath, tablemodel.getInventoryItems());
+                    inventoryDataProcessor.saveInventoryToFile(filepath, tablemodel.getInventoryItems());
                     inventorytable.clearSelection();
                     identifierTextfield.setText("");
                     nameTextfield.setText("");
