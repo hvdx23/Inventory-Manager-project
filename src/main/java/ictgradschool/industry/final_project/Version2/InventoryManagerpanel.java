@@ -23,26 +23,28 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
     private String filepath;
 
-    JTextField identifierTextfield=null;
-    private InventoryDataProcessor inventoryDataProcessor=new InventoryDataProcessor();
+    JTextField identifierTextfield = null;
+    JTextField nameTextfield = null;
+    JTextField priceTextfield = null;
+    JTextField quantityTextfield = null;
+    JTextField descriptionTextfield = null;
+
+    private InventoryDataProcessor inventoryDataProcessor = new InventoryDataProcessor();
 
     InventoryTableAdaptor tablemodel = null;
 
-    JTable inventorytable=null;
+    JTable inventorytable = null;
 
     public InventoryManagerpanel(String filepath) {
 
-        this.filepath=filepath;
+        this.filepath = filepath;
 
     }
 
 
-
-
-
     public void initcomponents() {
 
-        JPanel  buttonpanel=new JPanel();
+        JPanel buttonpanel = new JPanel();
 
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
@@ -61,82 +63,119 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
         sort = new JButton("Sort");
         sort.addActionListener(this);
         buttonpanel.add(sort);
-        add(buttonpanel,BorderLayout.CENTER);
+        add(buttonpanel, BorderLayout.CENTER);
 
         //Textfield panel
 
-        JPanel textfieldpanel=new JPanel();
-        textfieldpanel.setLayout(new GridLayout(5,2));
-        JLabel identifierLabel=new JLabel("Identifier");
+        JPanel textfieldpanel = new JPanel();
+        textfieldpanel.setLayout(new GridLayout(5, 2));
+        JLabel identifierLabel = new JLabel("Identifier");
         textfieldpanel.add(identifierLabel);
-        identifierTextfield=new JTextField();
+        identifierTextfield = new JTextField();
         textfieldpanel.add(identifierTextfield);
-        JLabel nameLabel=new JLabel("Name");
+
+        JLabel nameLabel = new JLabel("Name");
         textfieldpanel.add(nameLabel);
-        JTextField nameTextfield=new JTextField();
+        nameTextfield = new JTextField();
         textfieldpanel.add(nameTextfield);
-        JLabel descriptionLabel=new JLabel("Description");
+
+
+        JLabel descriptionLabel = new JLabel("Description");
         textfieldpanel.add(descriptionLabel);
-        JTextField descriptionTextfield=new JTextField();
+        descriptionTextfield = new JTextField();
         textfieldpanel.add(descriptionTextfield);
-        JLabel priceLabel=new JLabel("Price");
+
+
+        JLabel priceLabel = new JLabel("Price");
         textfieldpanel.add(priceLabel);
-        JTextField priceTextfield=new JTextField();
+        priceTextfield = new JTextField();
         textfieldpanel.add(priceTextfield);
-        JLabel quantityLabel=new JLabel("Quantity");
+
+
+        JLabel quantityLabel = new JLabel("Quantity");
         textfieldpanel.add(quantityLabel);
-        JTextField quantityTextfield=new JTextField();
+        quantityTextfield = new JTextField();
         textfieldpanel.add(quantityTextfield);
-        add(textfieldpanel,BorderLayout.SOUTH);
+        add(textfieldpanel, BorderLayout.SOUTH);
 
 
-        JPanel inventorytablepanel=new JPanel();
-        JTable inventorytable=new JTable();
-        List<InventoryItem> inventoryItems= inventoryDataProcessor.readInventoryFromFile(filepath);
-        if (inventoryItems==null){
-            inventoryItems=new ArrayList<>();
+        JPanel inventorytablepanel = new JPanel();
+        JTable inventorytable = new JTable();
+        List<InventoryItem> inventoryItems = inventoryDataProcessor.readInventoryFromFile(filepath);
+        if (inventoryItems == null) {
+            inventoryItems = new ArrayList<>();
         }
         tablemodel = new InventoryTableAdaptor(inventoryItems);
         inventorytable.setModel(tablemodel);
-        add(inventorytable,BorderLayout.NORTH);
+        add(inventorytable, BorderLayout.NORTH);
 
         //tableadaptor table display
 
 
-
-
-
-
     }
+
     @Override
-    public void actionPerformed (ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         if (e.getSource() == add) {
             //get values from all text fields
-            InventoryItem inventoryItem=new InventoryItem();
+            //add item for new item working
+            InventoryItem inventoryItem = new InventoryItem();
             inventoryItem.setIdentifier(identifierTextfield.getText());
+            inventoryItem.setName(nameTextfield.getText());
+            inventoryItem.setDescription(descriptionTextfield.getText());
+            inventoryItem.setPrice(Double.parseDouble(priceTextfield.getText()));
+            inventoryItem.setQuantity(Integer.parseInt(quantityTextfield.getText()));
             //for double use double.parseDouble
             //for int use Integer.parseInt
             //create new item
             //set values
+            boolean itemexists = false;
 
-            tablemodel.addInventoryData(inventoryItem);
+            for (int i = 0; i < tablemodel.getRowCount(); i++) {
+                if (tablemodel.getValueAt(i, 0).equals(inventoryItem.getIdentifier())) {
+                    Object currentvalue = tablemodel.getValueAt(i, 4);
+                    if (currentvalue instanceof Integer) {
+                        int currentquantity = (Integer) currentvalue;
+                        int newquantity = currentquantity + inventoryItem.getQuantity();
+                        tablemodel.setValueAt(newquantity, i, 4);
+                    }
+                    itemexists = true;
+                    break;
+
+                }
+
+
+            }
+            if(!itemexists) {
+                tablemodel.addInventoryData(inventoryItem);
+
+            }
+
 
             //if identifier exists in table, get the inventory item and update the quantity value. tablemodel.firetablechanged();
+            tablemodel.fireTableDataChanged();
+
+            if (e.getSource() == delete) {
+//                int selectedrow=inventorytable.getSelectedRow();
+//                if(selectedrow>=0){
+//                    InventoryItem selectedItem=tablemodel.getInventoryItem(selectedrow);
+//                    inventoryDataProcessor.deleteInventoryItem(filepath,selectedItem);
+//                    //setInventoryItems method not in classes
+//                    tablemodel.setInventoryItems(inventoryDataProcessor.readInventoryFromFile(filepath));
+//                }
+
+            }
+            if (e.getSource() == edit) {
+
+            }
+            if (e.getSource() == search) {
+
+            }
+            if (e.getSource() == sort) {
+
+            }
+
 
         }
-        if(e.getSource()==delete){
-
-        }
-        if(e.getSource()==edit){
-
-        }
-        if(e.getSource()==search){
-
-        }
-        if(e.getSource()==sort){
-
-        }
-
-
     }
 }
