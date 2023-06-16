@@ -57,12 +57,11 @@ public class InventoryDataProcessor {
         }
         return inventoryList;
     }
-    public void saveInventoryToFile(String fileName,List<InventoryItem> inventoryItems,String[] columnNames){
+    public void saveInventoryToFile(String fileName,List<InventoryItem> inventoryItems){
         //write to file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             // Write column names
-            bw.write(String.join(",", columnNames));
-            bw.newLine();
+
 
             // Write data rows
             for (InventoryItem item : inventoryItems) {
@@ -96,14 +95,14 @@ public class InventoryDataProcessor {
     public void addInventoryItem(String fileName, InventoryItem item){
         List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
         inventoryList.add(item);
-        saveInventoryToFile(fileName,inventoryList,new String[]{"Identifier","Name","Description","Price","Quantity"});
+        saveInventoryToFile(fileName,inventoryList);
 
     }
 
     public  void deleteInventoryItem(String fileName,InventoryItem item){
         List<InventoryItem> inventoryList=readInventoryFromFile(fileName);
         inventoryList.remove(item);
-        saveInventoryToFile(fileName,inventoryList,new String[]{"Identifier","Name","Description","Price","Quantity"});
+        saveInventoryToFile(fileName,inventoryList);
     }
 
     public void updateInventoryItem(String fileName,InventoryItem item){
@@ -116,7 +115,7 @@ public class InventoryDataProcessor {
                 i.setQuantity(item.getQuantity());
             }
         }
-        saveInventoryToFile(fileName,inventoryList,new String[]{"Identifier","Name","Description","Price","Quantity"});
+        saveInventoryToFile(fileName,inventoryList);
     }
 
     public void searchInventoryItem(String fileName,String search){
@@ -170,7 +169,7 @@ public class InventoryDataProcessor {
                 }
             }
         }
-        saveInventoryToFile(fileName,inventoryList,new String[]{"Identifier", "Name", "Description", "Price", "Quantity"});
+        saveInventoryToFile(fileName,inventoryList);
     }
 
 

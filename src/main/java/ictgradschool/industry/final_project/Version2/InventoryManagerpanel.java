@@ -1,8 +1,8 @@
 package ictgradschool.industry.final_project.Version2;
 
-import ictgradschool.industry.final_project.Version1.Item;
-
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +11,12 @@ import java.util.List;
 
 //All buttons & tables for inventorymanagerpanel only in this class.
 //declare all buttons
-public class InventoryManagerpanel extends JPanel implements ActionListener {
+public class InventoryManagerpanel extends JPanel implements ActionListener, ListSelectionListener {
 
     //inventorypanel
     private JButton add;
     private JButton delete;
-    private JButton edit;
+    private JButton update;
     private JButton search;
     private JButton sort;
     // table adaptor private JTable inventorytable;
@@ -54,9 +54,10 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
         delete = new JButton("Delete");
         delete.addActionListener(this);
         buttonpanel.add(delete);
-        edit = new JButton("Edit");
-        edit.addActionListener(this);
-        buttonpanel.add(edit);
+        update = new JButton("Update");
+        update.addActionListener(this);
+
+        buttonpanel.add(update);
         search = new JButton("Search");
         search.addActionListener(this);
         buttonpanel.add(search);
@@ -100,13 +101,16 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
 
         JPanel inventorytablepanel = new JPanel();
-        JTable inventorytable = new JTable();
+        inventorytable = new JTable();
         List<InventoryItem> inventoryItems = inventoryDataProcessor.readInventoryFromFile(filepath);
         if (inventoryItems == null) {
             inventoryItems = new ArrayList<>();
         }
         tablemodel = new InventoryTableAdaptor(inventoryItems);
         inventorytable.setModel(tablemodel);
+        inventorytable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel selectionModel = inventorytable.getSelectionModel();
+        selectionModel.addListSelectionListener(this);
         add(inventorytable, BorderLayout.NORTH);
 
         //tableadaptor table display
@@ -114,17 +118,39 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == add) {
             //get values from all text fields
-            //add item for new item working
+            String identifier = identifierTextfield.getText();
+            //validation of uppercase and numbers
+            boolean isValidIdentifier=identifier.matches("^[A-Z0-9]+$");
+            if(!isValidIdentifier){
+                JOptionPane.showMessageDialog(this,"Identifier must be uppercase and numbers only");
+                return;
+            }
             InventoryItem inventoryItem = new InventoryItem();
             inventoryItem.setIdentifier(identifierTextfield.getText());
+            //check for identifier
             inventoryItem.setName(nameTextfield.getText());
             inventoryItem.setDescription(descriptionTextfield.getText());
-            inventoryItem.setPrice(Double.parseDouble(priceTextfield.getText()));
-            inventoryItem.setQuantity(Integer.parseInt(quantityTextfield.getText()));
+            //check for double value
+            try{
+                inventoryItem.setPrice(Double.parseDouble(priceTextfield.getText()));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Price must be a number");
+                return;
+            }
+
+            //check for integer value
+            try{
+                inventoryItem.setQuantity(Integer.parseInt(quantityTextfield.getText()));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Quantity must be a number");
+                return;
+            }
+
             //for double use double.parseDouble
             //for int use Integer.parseInt
             //create new item
@@ -133,12 +159,8 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
             for (int i = 0; i < tablemodel.getRowCount(); i++) {
                 if (tablemodel.getValueAt(i, 0).equals(inventoryItem.getIdentifier())) {
-                    Object currentvalue = tablemodel.getValueAt(i, 4);
-                    if (currentvalue instanceof Integer) {
-                        int currentquantity = (Integer) currentvalue;
-                        int newquantity = currentquantity + inventoryItem.getQuantity();
-                        tablemodel.setValueAt(newquantity, i, 4);
-                    }
+
+
                     itemexists = true;
                     break;
 
@@ -146,26 +168,37 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
 
             }
-            if(!itemexists) {
+            if (!itemexists) {
                 tablemodel.addInventoryData(inventoryItem);
+                inventoryDataProcessor.saveInventoryToFile(filepath, tablemodel.getInventoryItems());
 
+            } else {
+                JOptionPane.showMessageDialog(this, "Item already exists");
             }
 
 
-            //if identifier exists in table, get the inventory item and update the quantity value. tablemodel.firetablechanged();
+            //if identifier exists in table, get the inventory item and update the quantity value tablemodel.firetablechanged();
             tablemodel.fireTableDataChanged();
-
+        }
             if (e.getSource() == delete) {
-//                int selectedrow=inventorytable.getSelectedRow();
-//                if(selectedrow>=0){
-//                    InventoryItem selectedItem=tablemodel.getInventoryItem(selectedrow);
+                int selectedrow=inventorytable.getSelectedRow();
+                if(selectedrow>=0){
+                    InventoryItem selectedItem=tablemodel.getInventoryItem(selectedrow);
 //                    inventoryDataProcessor.deleteInventoryItem(filepath,selectedItem);
-//                    //setInventoryItems method not in classes
+                    //setInventoryItems method not in classes
+                    tablemodel.deleteInventoryData(selectedItem);
+                    inventoryDataProcessor.saveInventoryToFile(filepath, tablemodel.getInventoryItems());
 //                    tablemodel.setInventoryItems(inventoryDataProcessor.readInventoryFromFile(filepath));
-//                }
+                }
 
             }
-            if (e.getSource() == edit) {
+            if (e.getSource() == update) {
+                //take selected row from Jtable
+                //get inventory item from table model
+                //update values from text fields
+                //firetable changed
+                //get all inventory from data processor
+                //save to file
 
             }
             if (e.getSource() == search) {
@@ -177,5 +210,19 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
 
         }
+
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        int row=e.getFirstIndex();
+        if(row>=0){
+            InventoryItem selectedItem=tablemodel.getInventoryItem(row);
+            identifierTextfield.setText(selectedItem.getIdentifier());
+            nameTextfield.setText(selectedItem.getName());
+            descriptionTextfield.setText(selectedItem.getDescription());
+            priceTextfield.setText(String.valueOf(selectedItem.getPrice()));
+            quantityTextfield.setText(String.valueOf(selectedItem.getQuantity()));
+        }
     }
 }
+

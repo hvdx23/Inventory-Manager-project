@@ -5,6 +5,7 @@ package ictgradschool.industry.final_project.Version2;
 import ictgradschool.industry.final_project.Version1.Item;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.Iterator;
 import java.util.List;
 
 //get methods from version 1 tableadaptor
@@ -60,12 +61,24 @@ public class InventoryTableAdaptor extends AbstractTableModel implements Invento
     }
 
     public void deleteInventoryData(InventoryItem data) {
-        this.inventoryItems.remove(data);
+//        this.inventoryItems.remove(data);
+        Iterator<InventoryItem> inventoryItemIterator=inventoryItems.iterator();
+        while (inventoryItemIterator.hasNext()){
+            InventoryItem item=inventoryItemIterator.next();
+            if (item.getIdentifier().equals(data.getIdentifier())){
+                inventoryItemIterator.remove();
+                break;
+            }
+        }
         fireTableDataChanged();
     }
 
     public InventoryItem getInventoryItem(int row) {
         return inventoryItems.get(row);
+    }
+
+    public List<InventoryItem> getInventoryItems() {
+        return inventoryItems;
     }
 
 
