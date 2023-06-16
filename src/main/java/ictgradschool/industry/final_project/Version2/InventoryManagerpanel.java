@@ -35,7 +35,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
     JTable inventorytable = null;
 
-
     public InventoryManagerpanel(String filepath) {
 
         this.filepath = filepath;
@@ -102,8 +101,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
         JPanel inventorytablepanel = new JPanel();
         JTable inventorytable = new JTable();
-        //trying to set the table to be editable
-//        inventorytable.setEditable(true);
         List<InventoryItem> inventoryItems = inventoryDataProcessor.readInventoryFromFile(filepath);
         if (inventoryItems == null) {
             inventoryItems = new ArrayList<>();
@@ -133,16 +130,14 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
             //create new item
             //set values
             boolean itemexists = false;
-            //code not working
+
             for (int i = 0; i < tablemodel.getRowCount(); i++) {
                 if (tablemodel.getValueAt(i, 0).equals(inventoryItem.getIdentifier())) {
                     Object currentvalue = tablemodel.getValueAt(i, 4);
                     if (currentvalue instanceof Integer) {
                         int currentquantity = (Integer) currentvalue;
                         int newquantity = currentquantity + inventoryItem.getQuantity();
-                        //setting the new quantity value not working
                         tablemodel.setValueAt(newquantity, i, 4);
-                        tablemodel.fireTableCellUpdated(i, 4);
                     }
                     itemexists = true;
                     break;
@@ -152,7 +147,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener {
 
             }
             if(!itemexists) {
-                //function working to add the data
                 tablemodel.addInventoryData(inventoryItem);
 
             }
