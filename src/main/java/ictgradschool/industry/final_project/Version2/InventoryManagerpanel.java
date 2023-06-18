@@ -13,12 +13,14 @@ import java.util.List;
 //declare all buttons
 public class InventoryManagerpanel extends JPanel implements ActionListener, ListSelectionListener {
 
-    //inventorypanel
+    //welcome screen panel instance for back button TODO
     private JButton add;
     private JButton delete;
     private JButton update;
     private JButton search;
     private JButton sort;
+
+    private JButton back;
     // table adaptor private JTable inventorytable;
 
     private String filepath;
@@ -28,6 +30,8 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
     JTextField priceTextfield = null;
     JTextField quantityTextfield = null;
     JTextField descriptionTextfield = null;
+
+    JScrollPane scrollPane = null;
 
     private InventoryDataProcessor inventoryDataProcessor = new InventoryDataProcessor();
 
@@ -64,6 +68,10 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         sort = new JButton("Sort");
         sort.addActionListener(this);
         buttonpanel.add(sort);
+        back=new JButton("Back");
+        back.addActionListener(this);
+        buttonpanel.add(back);
+
         add(buttonpanel, BorderLayout.CENTER);
 
         //Textfield panel
@@ -111,6 +119,9 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         inventorytable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel selectionModel = inventorytable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
+        //scrollpane not visible
+//        scrollPane = new JScrollPane(inventorytable);
+//        inventorytablepanel.add(scrollPane,BorderLayout.CENTER);
         add(inventorytable, BorderLayout.NORTH);
 
         //tableadaptor table display
@@ -225,6 +236,13 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
             }
             if (e.getSource() == sort) {
 
+            }
+            if (e.getSource()==back){
+//                WelcomeScreenPanel welcomeScreenPanel=new WelcomeScreenPanel(frame);
+//                frame.getContentPane().removeAll();
+//                frame.getContentPane().add(welcomeScreenPanel);
+//                frame.pack();
+//                frame.setVisible(true);
             }
 
 
