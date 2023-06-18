@@ -54,13 +54,14 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
             fc.setCurrentDirectory(new File("../src/main/resources/"));
             int returnVal = fc.showSaveDialog(WelcomeScreenPanel.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String filepath=fc.getSelectedFile().getAbsolutePath();
-                inventoryDataProcessor.createFile(filepath);
+            String fileName=fc.getSelectedFile().getAbsolutePath()+".csv";
+                inventoryDataProcessor.createFile(fileName);
 
                     JOptionPane.showMessageDialog(this, "File created successfully");
                     System.out.println("File created successfully");
                     //Panel creation
-                openManagerPanel(filepath);
+                inventoryDataProcessor.readInventoryFromFile(fileName);
+                openManagerPanel(fileName);
 //                    ManagerPanel managerPanel = new ManagerPanel();
 //                    JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
 //                    frame.getContentPane().removeAll();
@@ -88,8 +89,6 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
                     JOptionPane.showMessageDialog(this,"You have selected to open "+fileName);
                     System.out.println("FIle valid & opening");
 
-                    //Below 2 codes to be shifted to InventoryMangerpanel
-//                    List<Item> inventoryItemList=inventoryDataProcessor.readInventoryFromFile(file.getAbsolutePath());
                     inventoryDataProcessor.readInventoryFromFile(fileName);
                     openManagerPanel(fileName);
 

@@ -75,7 +75,7 @@ public class ManagerPanel extends JPanel implements ActionListener {
 //        POSpanel.setVisible(false);
 //        inventorypanel.setVisible(true);
 //    }
-    public void showPOSPanel(ProjectFrame frame){
+    public void showPOSPanel(){
         //create new instance
 //        POSpanel pospanel=new POSpanel();
 //        //calls initcomponents inside pospanel
@@ -92,10 +92,18 @@ public class ManagerPanel extends JPanel implements ActionListener {
 //        frame.pack();
 //        frame.setVisible(true);
 
-        POSpanel pospanel=new POSpanel();
-//        this.frame = frame;
+//        POSpanel pospanel=new POSpanel();
+////        this.frame = frame;
+//        frame.getContentPane().removeAll();
+//        frame.getContentPane().add(pospanel);
+
+        POSpanel pospanel=new POSpanel(filepath);
+        pospanel.initcomponents();
+        JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
         frame.getContentPane().removeAll();
         frame.getContentPane().add(pospanel);
+        frame.pack();
+        frame.setVisible(true);
     }
 
     public void showinventorymanagerpanel(){
@@ -117,7 +125,7 @@ public class ManagerPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==POS){
-            showPOSPanel(this.frame);
+            showPOSPanel();
         }
         if(e.getSource()==Inv){
             showinventorymanagerpanel();
