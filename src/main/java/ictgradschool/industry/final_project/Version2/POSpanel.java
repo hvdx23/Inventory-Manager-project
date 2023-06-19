@@ -13,6 +13,7 @@ import ictgradschool.industry.final_project.Version2.InventoryItem;
 //declare all buttons
 public class POSpanel extends JPanel implements ActionListener {
     private JButton addtocart;
+    private List<InventoryItem> inventoryItems;
     private JButton removefromcart;
     private JButton checkout;
     private JButton back;
@@ -20,6 +21,9 @@ public class POSpanel extends JPanel implements ActionListener {
     JTable inventorytable=null;
     InventoryTableAdaptor inventorytablemodel=null;
     POSTableAdapter posTablemodel=null;
+
+    JScrollPane scrollPane=null;
+    JScrollPane scrollPane1=null;
 
     private DefaultTableModel table;
 
@@ -65,16 +69,20 @@ public class POSpanel extends JPanel implements ActionListener {
         //inventory table
         //items to be displayed only if quanotty>0, to be implemeted later
 
-        List<InventoryItem> inventoryItems=inventoryDataProcessor.readInventoryFromFile(filepath);
+        inventoryItems=inventoryDataProcessor.readInventoryFromFile(filepath);
         List<InventoryItem> filteredItems=inventoryItems.stream().filter(item ->item.getQuantity()>0).collect(Collectors.toList());
         inventorytablemodel=new InventoryTableAdaptor(filteredItems);
         inventorytable=new JTable();
         inventorytable.setModel(inventorytablemodel);
-        add(inventorytable,BorderLayout.NORTH);
+        scrollPane=new JScrollPane(inventorytable);
+        add(scrollPane,BorderLayout.NORTH);
 
         //POS table
         posTablemodel=new POSTableAdapter(inventoryItems);
         postable=new JTable();
+        postable.setModel(posTablemodel);
+        scrollPane1=new JScrollPane(postable);
+        add(scrollPane1,BorderLayout.SOUTH);
 
 //
 
@@ -141,6 +149,11 @@ public class POSpanel extends JPanel implements ActionListener {
             if(currentQuantity>0){
                 selectedItem.setQuantity(currentQuantity-1);
                 inventorytablemodel.fireTableDataChanged();
+
+                if (currentQuantity - 1 == 0) {
+                    int inventoryRow = inventoryItems.indexOf(selectedItem);
+                    inventorytablemodel.removeRow(inventoryRow);
+                }
 
             }
 

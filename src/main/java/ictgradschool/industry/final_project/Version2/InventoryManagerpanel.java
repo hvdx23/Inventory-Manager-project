@@ -114,25 +114,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         add(textfieldpanel, BorderLayout.SOUTH);
 
 
-        //Filter panel
-
-//        JPanel filterpanel = new JPanel();
-//        JLabel filterLabel = new JLabel("Filter");
-//        filterbox=new JComboBox<>(new String[]{"All items","In stock","Out of stock"});
-//        filterbox.setSelectedIndex(0);
-//        filterpanel.add(filterLabel);
-//        filterpanel.add(filterbox);
-//        add(filterpanel,BorderLayout.WEST);
-//
-//        //Search Panel
-//        JPanel searchpanel=new JPanel();
-//        searchTextField=new JTextField(20);
-//        searchTextField.addActionListener(this);
-//        searchpanel.add(searchTextField);
-//        searchpanel.add(new JLabel("Search"));
-//        add(searchpanel,BorderLayout.EAST);
-
-
 
 
         //Trying out new layout
@@ -157,7 +138,9 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         add(searchpanel,BorderLayout.EAST);
 
 
-//        JPanel inventorytablepanel = new JPanel();
+
+
+
         inventorytable = new JTable();
         List<InventoryItem> inventoryItems = inventoryDataProcessor.readInventoryFromFile(filepath);
         if (inventoryItems == null) {
@@ -168,12 +151,10 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         inventorytable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel selectionModel = inventorytable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
-        //scrollpane not visible
-//        scrollPane = new JScrollPane(inventorytable);
-//        inventorytablepanel.add(scrollPane,BorderLayout.CENTER);
-        add(inventorytable, BorderLayout.NORTH);
 
-        //tableadaptor table display
+        scrollPane=new JScrollPane(inventorytable);
+        add(scrollPane, BorderLayout.NORTH);
+
 
 
     }

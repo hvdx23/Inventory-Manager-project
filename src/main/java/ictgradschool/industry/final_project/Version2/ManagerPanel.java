@@ -101,10 +101,11 @@ public class ManagerPanel extends JPanel implements ActionListener {
 
         POSpanel pospanel=new POSpanel(filepath);
         pospanel.initcomponents();
-        pospanel.setPreferredSize(new Dimension(800,600));
+
         JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
         frame.getContentPane().removeAll();
         frame.getContentPane().add(pospanel);
+        pospanel.setPreferredSize(new Dimension(800,600));
         frame.pack();
         frame.setVisible(true);
     }
