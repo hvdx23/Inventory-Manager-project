@@ -8,8 +8,11 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileWriter;
+import java.util.HashMap;
 
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import ictgradschool.industry.final_project.Version2.InventoryItem;
@@ -234,36 +237,90 @@ public class POSpanel extends JPanel implements ActionListener {
         inventorytablemodel.fireTableDataChanged();
     }
 
-    private void saveCheckoutDetails()throws IOException{
-        String fileName=JOptionPane.showInputDialog("Enter the file name");
-        if (fileName!=null){
-            fileName=fileName.trim();
-            if(!fileName.isEmpty()){
-                try(PrintWriter writer=new PrintWriter(new FileWriter(fileName+".txt"))){
-                    writer.println("-----------------------------------");
-                    for(int i=0;i<table.getRowCount();i++){
-                        String productname=(String) table.getValueAt(i,1);
-                        int quantity=(int) table.getValueAt(i,4);
-                        double price=(double) table.getValueAt(i,3);
-                        double total=quantity*price;
+//    private void saveCheckoutDetails()throws IOException{
+//        String fileName=JOptionPane.showInputDialog("Enter the file name");
+//        if (fileName!=null){
+//            fileName=fileName.trim();
+//            if(!fileName.isEmpty()){
+//                try(PrintWriter writer=new PrintWriter(new FileWriter(fileName+".txt"))){
+//                    writer.println("-----------------------------------");
+//                    for(int i=0;i<table.getRowCount();i++){
+//                        String productname=(String) table.getValueAt(i,1);
+//                        int quantity=(int) table.getValueAt(i,4);
+//                        double price=(double) table.getValueAt(i,3);
+//                        double total=quantity*price;
+//
+//                        writer.printf("%-3d %-20s $%.2f%n",quantity,productname,price);
+//                        if(price<0){
+//                            writer.printf("     (%.2f)%n", -price);
+//                        }
+//                        writer.printf("  Total: $%.2f%n", total);
+//
+//                    }
+//                    writer.println("====================================");
+//                    double grandtotal=calculateGrandTotal();
+//                    writer.printf("  TOTAL                   $%.2f%n", grandtotal);
+//                    writer.println("-------------------------------------");
+//                }
+//            }else{
+//                System.out.println("Error");
+//            }
+//        }
+//    }
 
-                        writer.printf("%-3d %-20s $%.2f%n",quantity,productname,price);
-                        if(price<0){
-                            writer.printf("     (%.2f)%n", -price);
+
+
+// ...
+
+    private void saveCheckoutDetails() throws IOException {
+        String fileName = JOptionPane.showInputDialog("Enter the file name");
+        if (fileName != null) {
+            fileName = fileName.trim();
+            if (!fileName.isEmpty()) {
+                try (PrintWriter writer = new PrintWriter(new FileWriter(fileName + ".txt"))) {
+                    writer.println("--------------------------------");
+
+                    // Create a HashMap to store the total quantity and price for each product
+                    Map<String, Double> productTotals = new HashMap<>();
+
+                    for (int i = 0; i < table.getRowCount(); i++) {
+                        String productName = (String) table.getValueAt(i, 1);
+                        int quantity = (int) table.getValueAt(i, 4);
+                        double price = (double) table.getValueAt(i, 3);
+                        double total = quantity * price;
+
+                        // Check if the product is already in the HashMap
+                        if (productTotals.containsKey(productName)) {
+                            double currentTotal = productTotals.get(productName);
+                            productTotals.put(productName, currentTotal + total);
+                        } else {
+                            productTotals.put(productName, total);
                         }
-                        writer.printf("  Total: $%.2f%n", total);
+                    }
+
+                    // Print the individual product totals
+                    for (Map.Entry<String, Double> entry : productTotals.entrySet()) {
+                        String productName = entry.getKey();
+                        double total = entry.getValue();
+                        int quantity=getQuantityForProduct(productName);
+                        writer.printf("%-3d %-20s    $%.2f    Total: $%.2f%n", quantity, productName, total / quantity, total);
+
 
                     }
-                    writer.println("====================================");
-                    double grandtotal=calculateGrandTotal();
-                    writer.printf("  TOTAL                   $%.2f%n", grandtotal);
-                    writer.println("-------------------------------------");
+
+                    writer.println("================================");
+
+                    // Calculate the grand total
+                    double grandTotal = calculateGrandTotal();
+                    writer.printf("   TOTAL                 $%.2f%n", grandTotal);
+                    writer.println("--------------------------------");
                 }
-            }else{
+            } else {
                 System.out.println("Error");
             }
         }
     }
+
 
     private double calculateGrandTotal() {
         double grandTotal = 0.0;
@@ -274,6 +331,17 @@ public class POSpanel extends JPanel implements ActionListener {
         }
         return grandTotal;
     }
+    private int getQuantityForProduct(String productName) {
+        int quantity = 0;
+        for (int i = 0; i < table.getRowCount(); i++) {
+            String name = (String) table.getValueAt(i, 1);
+            if (name.equals(productName)) {
+                quantity += (int) table.getValueAt(i, 4);
+            }
+        }
+        return quantity;
+    }
+
 }
 
 
