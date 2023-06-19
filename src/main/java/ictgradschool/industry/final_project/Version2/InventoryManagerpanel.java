@@ -175,9 +175,9 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
             //get values from all text fields
             String identifier = identifierTextfield.getText();
             //validation of uppercase and numbers
-            boolean isValidIdentifier=identifier.matches("^[A-Z0-9]+$");
+            boolean isValidIdentifier=identifier.matches("^[A-Z0-9]{10}+$");
             if(!isValidIdentifier){
-                JOptionPane.showMessageDialog(this,"Identifier must be uppercase and numbers only");
+                JOptionPane.showMessageDialog(this,"Identifier must be 10 digits -uppercase and numbers only");
                 return;
             }
             InventoryItem inventoryItem = new InventoryItem();

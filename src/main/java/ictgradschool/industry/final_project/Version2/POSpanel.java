@@ -144,30 +144,49 @@ public class POSpanel extends JPanel implements ActionListener {
 //        }
 //    }
 //    }
-        if (e.getSource()==addtocart){
-            int selectedRow=inventorytable.getSelectedRow();
-            InventoryItem selectedItem=inventorytablemodel.getInventoryItem(selectedRow);
-            table.addRow(new Object[]{selectedItem.getIdentifier(),
-                    selectedItem.getName(),
-                    selectedItem.getDescription(),
-                    selectedItem.getPrice(),
-                    1});
+//        if (e.getSource()==addtocart){
+//            int selectedRow=inventorytable.getSelectedRow();
+//            InventoryItem selectedItem=inventorytablemodel.getInventoryItem(selectedRow);
+//            table.addRow(new Object[]{selectedItem.getIdentifier(),
+//                    selectedItem.getName(),
+//                    selectedItem.getDescription(),
+//                    selectedItem.getPrice(),
+//                    1});
+//
+//            int currentQuantity=selectedItem.getQuantity();
+//            if(currentQuantity>0){
+//                selectedItem.setQuantity(currentQuantity-1);
+//                inventorytablemodel.fireTableDataChanged();
+//
+//                if (currentQuantity - 1 == 0) {
+//                    int inventoryRow = inventoryItems.indexOf(selectedItem);
+//                    inventorytablemodel.removeRow(inventoryRow);
+//                }
+//
+//            }
+        if (e.getSource() == addtocart) {
+            int selectedRow = inventorytable.getSelectedRow();
+            InventoryItem selectedItem = inventorytablemodel.getInventoryItem(selectedRow);
 
-            int currentQuantity=selectedItem.getQuantity();
-            if(currentQuantity>0){
-                selectedItem.setQuantity(currentQuantity-1);
+            if (selectedItem.getQuantity() > 0) {
+                selectedItem.setQuantity(selectedItem.getQuantity() - 1);
                 inventorytablemodel.fireTableDataChanged();
 
-                if (currentQuantity - 1 == 0) {
+                if (selectedItem.getQuantity() == 0) {
                     int inventoryRow = inventoryItems.indexOf(selectedItem);
                     inventorytablemodel.removeRow(inventoryRow);
                 }
 
+                table.addRow(new Object[]{
+                        selectedItem.getIdentifier(),
+                        selectedItem.getName(),
+                        selectedItem.getDescription(),
+                        selectedItem.getPrice(),
+                        1
+                });
             }
-
-
-
         }
+
         if(e.getSource()==removefromcart){
             int selectedRow=postable.getSelectedRow();
 //            table.removeRow(selectedRow);

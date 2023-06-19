@@ -37,6 +37,20 @@ public class InventoryTableAdaptor extends AbstractTableModel implements Invento
     public Object getValueAt(int rowIndex, int columnIndex) {
         return getObject(rowIndex, columnIndex, inventoryItems);
     }
+//when implemeting this method the item is not shown in the table if the quanity is 0
+//    @Override
+//    public Object getValueAt(int rowIndex, int columnIndex) {
+//        InventoryItem item = inventoryItems.get(rowIndex);
+//
+//        // Check if the item quantity is zero
+//        if (item.getQuantity() == 0) {
+//            // Return null for all columns to hide the row
+//            return null;
+//        }
+//
+//        return getObject(rowIndex, columnIndex, inventoryItems);
+//    }
+
 
     @Override
     public String getColumnName(int column) {
@@ -109,4 +123,17 @@ public class InventoryTableAdaptor extends AbstractTableModel implements Invento
             fireTableRowsDeleted(row, row);
         }
     }
+
+//    public void removeRow(int row) {
+//        if (row >= 0 && row < inventoryItems.size()) {
+//            InventoryItem item = inventoryItems.get(row);
+//            if (item.getQuantity() > 0) {
+//                item.setQuantity(0);
+//            } else {
+//                inventoryItems.remove(row);
+//            }
+//            fireTableRowsDeleted(row, row);
+//        }
+//    }
+
 }
