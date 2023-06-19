@@ -140,6 +140,7 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         JLabel filterLabel = new JLabel("Filter");
         filterbox=new JComboBox<>(new String[]{"All items","In stock","Out of stock"});
         filterbox.setSelectedIndex(0);
+        filterbox.addActionListener(this);
         filterpanel.add(filterLabel);
         filterpanel.add(filterbox);
         add(filterpanel,BorderLayout.WEST);
@@ -314,6 +315,7 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
             if (e.getSource() == sort) {
 
+
             }
             if (e.getSource()==back){
                 if(isSearchResultsDisplayed()){
@@ -331,6 +333,32 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
 
             }
+
+            if (e.getSource()==filterbox){
+                String selectedFilter = (String) filterbox.getSelectedItem();
+                System.out.println(selectedFilter);
+                if(selectedFilter.equals("All items")){
+                    tablemodel.setInventoryItems(inventoryDataProcessor.readInventoryFromFile(filepath));
+                }else if (selectedFilter.equals("In stock")){
+                    List<InventoryItem> inStockItems = new ArrayList<>();
+                    for (InventoryItem item : inventoryDataProcessor.readInventoryFromFile(filepath)) {
+                        if (item.getQuantity() > 0) {
+                            inStockItems.add(item);
+                        }
+                    }
+                    tablemodel.setInventoryItems(inStockItems);
+                }else if(selectedFilter.equals("Out of stock")){
+                    List<InventoryItem> outOfStockItems = new ArrayList<>();
+                    for (InventoryItem item : inventoryDataProcessor.readInventoryFromFile(filepath)) {
+                        if (item.getQuantity() == 0) {
+                            outOfStockItems.add(item);
+                        }
+                    }
+                    tablemodel.setInventoryItems(outOfStockItems);
+                }
+                tablemodel.fireTableDataChanged();
+            }
+
 
 
         }
