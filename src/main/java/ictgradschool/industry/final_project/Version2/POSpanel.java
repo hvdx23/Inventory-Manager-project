@@ -5,6 +5,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,9 +84,8 @@ public class POSpanel extends JPanel implements ActionListener {
         //POS table
         posTablemodel=new POSTableAdapter(inventoryItems);
         postable=new JTable();
-        postable.setModel(posTablemodel);
-        scrollPane1=new JScrollPane(postable);
-        add(scrollPane1,BorderLayout.SOUTH);
+//        postable.setModel(posTablemodel);
+
 
 //
 
@@ -94,6 +97,8 @@ public class POSpanel extends JPanel implements ActionListener {
 
 
         postable.setModel(table);
+        scrollPane1=new JScrollPane(postable);
+        add(scrollPane1,BorderLayout.SOUTH);
         add(postable,BorderLayout.SOUTH);
     }
 
@@ -185,6 +190,11 @@ public class POSpanel extends JPanel implements ActionListener {
             reloadInventoryTable();
         }
         if (e.getSource()==checkout){
+            try{
+                saveCheckoutDetails();
+            }catch(IOException ex){
+                ex.printStackTrace();
+            }
 
         }
         if (e.getSource()==back){
@@ -223,5 +233,47 @@ public class POSpanel extends JPanel implements ActionListener {
         inventorytablemodel.setInventoryItems(inventoryItems);
         inventorytablemodel.fireTableDataChanged();
     }
+
+    private void saveCheckoutDetails()throws IOException{
+        String fileName=JOptionPane.showInputDialog("Enter the file name");
+        if (fileName!=null){
+            fileName=fileName.trim();
+            if(!fileName.isEmpty()){
+                try(PrintWriter writer=new PrintWriter(new FileWriter(fileName+".txt"))){
+                    writer.println("-----------------------------------");
+                    for(int i=0;i<table.getRowCount();i++){
+                        String productname=(String) table.getValueAt(i,1);
+                        int quantity=(int) table.getValueAt(i,4);
+                        double price=(double) table.getValueAt(i,3);
+                        double total=quantity*price;
+
+                        writer.printf("%-3d %-20s $%.2f%n",quantity,productname,price);
+                        if(price<0){
+                            writer.printf("     (%.2f)%n", -price);
+                        }
+                        writer.printf("  Total: $%.2f%n", total);
+
+                    }
+                    writer.println("====================================");
+                    double grandtotal=calculateGrandTotal();
+                    writer.printf("  TOTAL                   $%.2f%n", grandtotal);
+                    writer.println("-------------------------------------");
+                }
+            }else{
+                System.out.println("Error");
+            }
+        }
+    }
+
+    private double calculateGrandTotal() {
+        double grandTotal = 0.0;
+        for (int i = 0; i < table.getRowCount(); i++) {
+            int quantity =Integer.parseInt(table.getValueAt(i, 4).toString());
+            double price = (double) table.getValueAt(i, 3);
+            grandTotal += quantity * price;
+        }
+        return grandTotal;
+    }
 }
+
 
