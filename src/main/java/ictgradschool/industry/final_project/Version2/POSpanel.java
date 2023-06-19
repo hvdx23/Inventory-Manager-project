@@ -143,7 +143,7 @@ public class POSpanel extends JPanel implements ActionListener {
                     selectedItem.getName(),
                     selectedItem.getDescription(),
                     selectedItem.getPrice(),
-                    selectedItem.getQuantity()});
+                    1});
 
             int currentQuantity=selectedItem.getQuantity();
             if(currentQuantity>0){
@@ -162,8 +162,27 @@ public class POSpanel extends JPanel implements ActionListener {
         }
         if(e.getSource()==removefromcart){
             int selectedRow=postable.getSelectedRow();
-            table.removeRow(selectedRow);
+//            table.removeRow(selectedRow);
+            if (selectedRow !=-1){
+                Object [] rowData=new Object[table.getColumnCount()];
+                for(int i=0;i<table.getColumnCount();i++){
+                    rowData[i]=table.getValueAt(selectedRow,i);
+                }
+                table.removeRow(selectedRow);
 
+                String itemID=(String) rowData[0];
+                InventoryItem selectedItem=inventoryItems.stream().filter(item -> item.getIdentifier().equals(itemID)).findFirst().orElse(null);
+                if (selectedItem !=null){
+                    selectedItem.setQuantity(selectedItem.getQuantity()+1);
+                    inventorytablemodel.fireTableDataChanged();
+                    if (selectedItem.getQuantity()==1){
+                        inventorytablemodel.addInventoryData(selectedItem);
+                    }
+                }
+                reloadInventoryTable();
+
+            }
+            reloadInventoryTable();
         }
         if (e.getSource()==checkout){
 
@@ -197,4 +216,12 @@ public class POSpanel extends JPanel implements ActionListener {
 //        this.frame.setVisible(true);
 
     }
+    public void reloadInventoryTable() {
+        inventoryItems = inventoryItems.stream()
+                .filter(item -> item.getQuantity() > 0)
+                .collect(Collectors.toList());
+        inventorytablemodel.setInventoryItems(inventoryItems);
+        inventorytablemodel.fireTableDataChanged();
+    }
 }
+
