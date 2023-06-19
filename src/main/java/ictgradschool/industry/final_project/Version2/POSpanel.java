@@ -161,6 +161,7 @@ public class POSpanel extends JPanel implements ActionListener {
             managerPanel.initcomponents();
             frame.getContentPane().removeAll();
             frame.getContentPane().add(managerPanel);
+            managerPanel.setPreferredSize(new Dimension(800, 600));
             frame.pack();
             frame.setVisible(true);
 

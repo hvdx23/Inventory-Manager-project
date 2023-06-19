@@ -6,7 +6,9 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 //All buttons & tables for inventorymanagerpanel only in this class.
@@ -20,16 +22,20 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
     private JButton search;
     private JButton sort;
 
+
     private JButton back;
     // table adaptor private JTable inventorytable;
 
     private String filepath;
+
+    private JComboBox<String> filterbox;
 
     JTextField identifierTextfield = null;
     JTextField nameTextfield = null;
     JTextField priceTextfield = null;
     JTextField quantityTextfield = null;
     JTextField descriptionTextfield = null;
+    JTextField searchTextField = null;
 
     JScrollPane scrollPane = null;
 
@@ -62,12 +68,12 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         update.addActionListener(this);
 
         buttonpanel.add(update);
-        search = new JButton("Search");
-        search.addActionListener(this);
-        buttonpanel.add(search);
-        sort = new JButton("Sort");
-        sort.addActionListener(this);
-        buttonpanel.add(sort);
+//        search = new JButton("Search");
+//        search.addActionListener(this);
+//        buttonpanel.add(search);
+//        sort = new JButton("Sort");
+//        sort.addActionListener(this);
+//        buttonpanel.add(sort);
         back=new JButton("Back");
         back.addActionListener(this);
         buttonpanel.add(back);
@@ -108,7 +114,49 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         add(textfieldpanel, BorderLayout.SOUTH);
 
 
-        JPanel inventorytablepanel = new JPanel();
+        //Filter panel
+
+//        JPanel filterpanel = new JPanel();
+//        JLabel filterLabel = new JLabel("Filter");
+//        filterbox=new JComboBox<>(new String[]{"All items","In stock","Out of stock"});
+//        filterbox.setSelectedIndex(0);
+//        filterpanel.add(filterLabel);
+//        filterpanel.add(filterbox);
+//        add(filterpanel,BorderLayout.WEST);
+//
+//        //Search Panel
+//        JPanel searchpanel=new JPanel();
+//        searchTextField=new JTextField(20);
+//        searchTextField.addActionListener(this);
+//        searchpanel.add(searchTextField);
+//        searchpanel.add(new JLabel("Search"));
+//        add(searchpanel,BorderLayout.EAST);
+
+
+
+
+        //Trying out new layout
+        JPanel filterpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel filterLabel = new JLabel("Filter");
+        filterbox=new JComboBox<>(new String[]{"All items","In stock","Out of stock"});
+        filterbox.setSelectedIndex(0);
+        filterpanel.add(filterLabel);
+        filterpanel.add(filterbox);
+        add(filterpanel,BorderLayout.WEST);
+
+        //Search Panel
+        JPanel searchpanel=new JPanel();
+        searchTextField=new JTextField(20);
+        searchTextField.addActionListener(this);
+        filterpanel.add(searchTextField);
+//        filterpanel.add(new JLabel("Search"));
+        search=new JButton("Search");
+        search.addActionListener(this);
+        filterpanel.add(search);
+        add(searchpanel,BorderLayout.EAST);
+
+
+//        JPanel inventorytablepanel = new JPanel();
         inventorytable = new JTable();
         List<InventoryItem> inventoryItems = inventoryDataProcessor.readInventoryFromFile(filepath);
         if (inventoryItems == null) {
@@ -129,6 +177,15 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
     }
 
+//    private void sortInventory(){
+//        List<InventoryItem> inventoryItems = tablemodel.getInventoryItems();
+//        inventoryItems.sort(new Comparator<InventoryItem>() {
+//            @Override
+//            public int compare(InventoryItem o1, InventoryItem o2) {
+//                return 0;
+//            }
+//        })
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -230,40 +287,64 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
                 }
 
             }
-            if (e.getSource() == search) {
+            if (e.getSource()==search){
+                String searchText = searchTextField.getText();
+                if (!searchText.isEmpty()) {
+                    List<InventoryItem> searchResults = new ArrayList<>();
+
+                    for (InventoryItem item : tablemodel.getInventoryItems()) {
+                        if (item.getIdentifier().toLowerCase().contains(searchText.toLowerCase()) ||
+                                item.getName().toLowerCase().contains(searchText.toLowerCase()) ||
+                                item.getDescription().toLowerCase().contains(searchText.toLowerCase())) {
+                            searchResults.add(item);
+                        }
+                    }
+
+                    // Update the table model with the search results
+                    tablemodel.setInventoryItems(searchResults);
+                    tablemodel.fireTableDataChanged();
+                } else {
+                    // If the search text is empty, reset the table model to the original inventory items
+                    tablemodel.setInventoryItems(inventoryDataProcessor.readInventoryFromFile(filepath));
+                    tablemodel.fireTableDataChanged();
+                }
 
 
             }
+
             if (e.getSource() == sort) {
 
             }
             if (e.getSource()==back){
-                ProjectFrame frame = (ProjectFrame) SwingUtilities.getWindowAncestor(this);
-                ManagerPanel managerPanel = new ManagerPanel(filepath);
-                managerPanel.initcomponents();
-                frame.getContentPane().removeAll();
-                frame.getContentPane().add(managerPanel);
-                frame.pack();
-                frame.setVisible(true);
+                if(isSearchResultsDisplayed()){
+                    refreshManagerPanel();
+                }else {
+                    ProjectFrame frame = (ProjectFrame) SwingUtilities.getWindowAncestor(this);
+                    ManagerPanel managerPanel = new ManagerPanel(filepath);
+                    managerPanel.initcomponents();
+                    frame.getContentPane().removeAll();
+                    frame.getContentPane().add(managerPanel);
+                    managerPanel.setPreferredSize(new Dimension(800, 600));
+                    frame.pack();
+                    frame.setVisible(true);
+                }
+
 
             }
 
 
         }
 
-//Delete if other method not working
 //    @Override
-//    public void valueChanged(ListSelectionEvent e) {
-//        int row=e.getFirstIndex();
-//        if(row!=-1){
-//            InventoryItem selectedItem=tablemodel.getInventoryItem(row);
-//            identifierTextfield.setText(selectedItem.getIdentifier());
-//            nameTextfield.setText(selectedItem.getName());
-//            descriptionTextfield.setText(selectedItem.getDescription());
-//            priceTextfield.setText(String.valueOf(selectedItem.getPrice()));
-//            quantityTextfield.setText(String.valueOf(selectedItem.getQuantity()));
+//    public void keyPressed(KeyEvent e) {
+//        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+//
+//            search.doClick();
 //        }
 //    }
+
+
+
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
@@ -278,6 +359,21 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
                 quantityTextfield.setText(String.valueOf(selectedItem.getQuantity()));
             }
         }
+    }
+
+    private boolean isSearchResultsDisplayed() {
+        return tablemodel.getInventoryItems().size() != inventoryDataProcessor.readInventoryFromFile(filepath).size();
+    }
+
+    private void refreshManagerPanel() {
+        ProjectFrame frame = (ProjectFrame) SwingUtilities.getWindowAncestor(this);
+        InventoryManagerpanel managerPanel = new InventoryManagerpanel(filepath);
+        managerPanel.initcomponents();
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(managerPanel);
+        managerPanel.setPreferredSize(new Dimension(800, 600));
+        frame.pack();
+        frame.setVisible(true);
     }
 
 }

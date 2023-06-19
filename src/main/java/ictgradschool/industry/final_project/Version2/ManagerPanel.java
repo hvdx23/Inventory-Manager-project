@@ -139,6 +139,7 @@ public class ManagerPanel extends JPanel implements ActionListener {
             WelcomeScreenPanel welcomeScreenPanel = new WelcomeScreenPanel(frame);
             frame.getContentPane().removeAll();
             frame.getContentPane().add(welcomeScreenPanel);
+            welcomeScreenPanel.setPreferredSize(new Dimension(800,600));
             frame.pack();
             frame.setVisible(true);
         }

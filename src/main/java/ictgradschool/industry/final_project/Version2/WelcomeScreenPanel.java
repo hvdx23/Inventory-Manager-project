@@ -21,7 +21,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
 
     public WelcomeScreenPanel(ProjectFrame frame) {
         welcomeScreenPanel.setBackground(Color.WHITE);
-        welcomeScreenPanel.setPreferredSize(new Dimension(800, 600));
+        welcomeScreenPanel.setPreferredSize(new Dimension(400, 200));
         welcomeScreenPanel.setVisible(true);
 
         open= new JButton("Open");
@@ -115,6 +115,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
         ManagerPanel managerPanel = new ManagerPanel(filepath);
         //call initcomponent.
         managerPanel.initcomponents();
+        managerPanel.setPreferredSize(new Dimension(800, 600));
         //showinitialscreenmethod()
 
         this.frame.getContentPane().removeAll();

@@ -16,6 +16,10 @@ public class InventoryTableAdaptor extends AbstractTableModel implements Invento
 
     }
 
+    public void setInventoryItems(List<InventoryItem> inventoryItems) {
+        this.inventoryItems = inventoryItems;
+    }
+
     @Override
     public int getRowCount() {
         return inventoryItems.size();
