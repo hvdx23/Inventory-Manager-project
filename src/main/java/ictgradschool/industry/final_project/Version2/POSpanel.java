@@ -195,6 +195,7 @@ public class POSpanel extends JPanel implements ActionListener {
         if (e.getSource()==checkout){
             try{
                 saveCheckoutDetails();
+                inventoryDataProcessor.saveInventoryToFile(filepath, inventorytablemodel.getInventoryItems());
             }catch(IOException ex){
                 ex.printStackTrace();
             }
@@ -303,7 +304,11 @@ public class POSpanel extends JPanel implements ActionListener {
                         String productName = entry.getKey();
                         double total = entry.getValue();
                         int quantity=getQuantityForProduct(productName);
-                        writer.printf("%-3d %-20s    $%.2f    Total: $%.2f%n", quantity, productName, total / quantity, total);
+                        if (total != quantity * getProductPrice(productName)) {
+                            writer.printf("%-3d %-20s    Total: $%.2f%n", quantity, productName, total);
+                        }else {
+                            writer.printf("%-3d %-20s    $%.2f    Total: $%.2f%n", quantity, productName, total / quantity, total);
+                        }
 
 
                     }
@@ -341,6 +346,18 @@ public class POSpanel extends JPanel implements ActionListener {
         }
         return quantity;
     }
+    private double getProductPrice(String productName) {
+        double price = 0.0;
+        for (int i = 0; i < table.getRowCount(); i++) {
+            String name = (String) table.getValueAt(i, 1);
+            if (name.equals(productName)) {
+                price = (double) table.getValueAt(i, 3);
+                break;
+            }
+        }
+        return price;
+    }
+
 
 }
 
