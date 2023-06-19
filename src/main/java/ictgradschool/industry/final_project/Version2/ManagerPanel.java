@@ -1,5 +1,7 @@
 package ictgradschool.industry.final_project.Version2;
 
+import ictgradschool.industry.final_project.Version1.InventoryManagerPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -99,6 +101,7 @@ public class ManagerPanel extends JPanel implements ActionListener {
 
         POSpanel pospanel=new POSpanel(filepath);
         pospanel.initcomponents();
+        pospanel.setPreferredSize(new Dimension(800,600));
         JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
         frame.getContentPane().removeAll();
         frame.getContentPane().add(pospanel);
@@ -109,6 +112,7 @@ public class ManagerPanel extends JPanel implements ActionListener {
     public void showinventorymanagerpanel(){
         InventoryManagerpanel inventorymanagerpanel=new InventoryManagerpanel(filepath);
         inventorymanagerpanel.initcomponents();
+        inventorymanagerpanel.setPreferredSize(new Dimension(800,600));
         JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
         frame.getContentPane().removeAll();
         frame.getContentPane().add(inventorymanagerpanel);
@@ -129,6 +133,14 @@ public class ManagerPanel extends JPanel implements ActionListener {
         }
         if(e.getSource()==Inv){
             showinventorymanagerpanel();
+        }
+        if (e.getSource()==back){
+            ProjectFrame frame = (ProjectFrame) SwingUtilities.getWindowAncestor(this);
+            WelcomeScreenPanel welcomeScreenPanel = new WelcomeScreenPanel(frame);
+            frame.getContentPane().removeAll();
+            frame.getContentPane().add(welcomeScreenPanel);
+            frame.pack();
+            frame.setVisible(true);
         }
 
     }

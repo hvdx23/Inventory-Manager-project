@@ -1,8 +1,6 @@
 package ictgradschool.industry.final_project.Version2;
 
-//import ictgradschool.industry.final_project.Version1.Item;
 
-import ictgradschool.industry.final_project.Version1.Item;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Iterator;
@@ -98,6 +96,13 @@ public class InventoryTableAdaptor extends AbstractTableModel implements Invento
             default:
                 return null;
 
+        }
+    }
+
+    public void removeRow(int row) {
+        if (row >= 0 && row < inventoryItems.size()) {
+            inventoryItems.remove(row);
+            fireTableRowsDeleted(row, row);
         }
     }
 }

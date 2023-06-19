@@ -238,11 +238,14 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
             }
             if (e.getSource()==back){
-//                WelcomeScreenPanel welcomeScreenPanel=new WelcomeScreenPanel(frame);
-//                frame.getContentPane().removeAll();
-//                frame.getContentPane().add(welcomeScreenPanel);
-//                frame.pack();
-//                frame.setVisible(true);
+                ProjectFrame frame = (ProjectFrame) SwingUtilities.getWindowAncestor(this);
+                ManagerPanel managerPanel = new ManagerPanel(filepath);
+                managerPanel.initcomponents();
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(managerPanel);
+                frame.pack();
+                frame.setVisible(true);
+
             }
 
 
