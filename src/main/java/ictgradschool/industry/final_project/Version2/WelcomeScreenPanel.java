@@ -76,13 +76,6 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
                     //Panel creation
                 inventoryDataProcessor.readInventoryFromFile(fileName);
                 openManagerPanel(fileName);
-//                    ManagerPanel managerPanel = new ManagerPanel();
-//                    JFrame frame=(JFrame)SwingUtilities.getWindowAncestor(this);
-//                    frame.getContentPane().removeAll();
-//                    frame.getContentPane().add(managerPanel);
-//                    frame.pack();
-//                    frame.setVisible(true);
-
 
             }
 
@@ -127,13 +120,13 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
 
 
         ManagerPanel managerPanel = new ManagerPanel(filepath);
-        //call initcomponent.
+
         managerPanel.initcomponents();
         managerPanel.setPreferredSize(new Dimension(800, 600));
-        //showinitialscreenmethod()
+
 
         this.frame.getContentPane().removeAll();
-//        frame.getContentPane().removeAll();
+
         this.frame.getContentPane().add(managerPanel);
         this.frame.pack();
         this.frame.setVisible(true);

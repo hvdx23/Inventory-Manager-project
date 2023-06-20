@@ -13,7 +13,6 @@ public class InventoryDataProcessor {
 
 
         if (file.exists()) {
-//            JOptionPane.showMessageDialog(this, "File already exists");
             return;
         }
         try {
@@ -35,17 +34,15 @@ public class InventoryDataProcessor {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-//                System.out.println("Values: " + Arrays.toString(values)); // Debug output
-
                 InventoryItem item = createInventoryItemFromValues(values);
                 inventoryList.add(item);
             }
-//            fireTableStructureChanged();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         finally {
-            //CLOSE BUfferedReader here using try catch
+
             if(br!=null){
                 try {
                     br.close();

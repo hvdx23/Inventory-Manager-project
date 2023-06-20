@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-//All buttons & tables for inventorymanagerpanel only in this class.
-//declare all buttons
+
 public class InventoryManagerpanel extends JPanel implements ActionListener, ListSelectionListener {
 
     //welcome screen panel instance for back button TODO
@@ -68,12 +67,7 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         update.addActionListener(this);
 
         buttonpanel.add(update);
-//        search = new JButton("Search");
-//        search.addActionListener(this);
-//        buttonpanel.add(search);
-//        sort = new JButton("Sort");
-//        sort.addActionListener(this);
-//        buttonpanel.add(sort);
+
         back=new JButton("Back");
         back.addActionListener(this);
         buttonpanel.add(back);
@@ -159,16 +153,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
     }
 
-//    private void sortInventory(){
-//        List<InventoryItem> inventoryItems = tablemodel.getInventoryItems();
-//        inventoryItems.sort(new Comparator<InventoryItem>() {
-//            @Override
-//            public int compare(InventoryItem o1, InventoryItem o2) {
-//                return 0;
-//            }
-//        })
-//    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == add) {
@@ -216,7 +200,7 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
             if (!itemexists) {
                 tablemodel.addInventoryData(inventoryItem);
                 inventoryDataProcessor.saveInventoryToFile(filepath, tablemodel.getInventoryItems());
-                //delete teh item details in text field
+                //delete the item details in text field
                 identifierTextfield.setText("");
                 nameTextfield.setText("");
                 descriptionTextfield.setText("");
@@ -226,9 +210,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
             } else {
                 JOptionPane.showMessageDialog(this, "Item already exists");
             }
-
-
-            //if identifier exists in table, get the inventory item and update the quantity value tablemodel.firetablechanged();
             tablemodel.fireTableDataChanged();
         }
             if (e.getSource() == delete) {
@@ -243,12 +224,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
             }
             if (e.getSource() == update) {
-                //take selected row from Jtable
-                //get inventory item from table model
-                //update values from text fields
-                //firetable changed
-                //get all inventory from data processor
-                //save to file
                 int selectedrow=inventorytable.getSelectedRow();
                 if(selectedrow>=0){
                     InventoryItem selectedItem=tablemodel.getInventoryItem(selectedrow);
@@ -282,11 +257,10 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
                         }
                     }
 
-                    // Update the table model with the search results
+
                     tablemodel.setInventoryItems(searchResults);
                     tablemodel.fireTableDataChanged();
                 } else {
-                    // If the search text is empty, reset the table model to the original inventory items
                     tablemodel.setInventoryItems(inventoryDataProcessor.readInventoryFromFile(filepath));
                     tablemodel.fireTableDataChanged();
                 }
@@ -343,17 +317,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
 
         }
-
-//    @Override
-//    public void keyPressed(KeyEvent e) {
-//        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-//
-//            search.doClick();
-//        }
-//    }
-
-
-
 
     @Override
     public void valueChanged(ListSelectionEvent e) {

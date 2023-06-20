@@ -4,4 +4,4 @@ The file for inventory manager can be selected.
 sample csv inventory fie called inventory is included in src folder.
 the receipt is saved to the same folder as the src file.
 
-//need to clear the values in the checkout table after checkout.
+

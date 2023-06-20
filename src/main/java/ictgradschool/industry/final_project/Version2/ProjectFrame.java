@@ -11,18 +11,9 @@ public class ProjectFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
-//        welcomeScreenPanel=new WelcomeScreenPanel();
-//        managerPanel=new ManagerPanel();
         setVisible(true);
     }
 
-    //To remove for code celanup
-//    public void switchToManagerPanel(){
-//        getContentPane().removeAll();
-//        add(managerPanel);
-//        revalidate();
-//        repaint();
-//    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -30,7 +21,7 @@ public class ProjectFrame extends JFrame {
             public void run() {
                 ProjectFrame frame = new ProjectFrame();
                 WelcomeScreenPanel welcomeScreenPanel = new WelcomeScreenPanel(frame);
-//                frame.add(welcomeScreenPanel);
+
                 frame.setVisible(true);
             }
         });

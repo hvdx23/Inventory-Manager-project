@@ -69,12 +69,9 @@ public class InventoryItem {
     }
 
     public int getColumnCount() {
-
-
     return 0;
-
     }
-    //Obj code for getindex method
+
 
 
     @Override
