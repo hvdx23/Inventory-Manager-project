@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileWriter;
@@ -290,7 +291,7 @@ public class POSpanel extends JPanel implements ActionListener {
 
 
 
-// ...
+// ...save file to src folder-workign version
 
     private void saveCheckoutDetails() throws IOException {
         String fileName = JOptionPane.showInputDialog("Enter the file name");
@@ -344,6 +345,9 @@ public class POSpanel extends JPanel implements ActionListener {
             }
         }
     }
+
+
+
 
 
     private double calculateGrandTotal() {

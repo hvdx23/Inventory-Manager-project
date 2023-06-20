@@ -1,4 +1,7 @@
-need to work on the saving of the file in the proper manner. If an item is 0 at checkout the item is deleted from
-the list. Need to update in such a manner that the item is updated. not deleted.
+The final version of the program is version 2.
+ProjectFrame is the starting point for the code.
+The file for inventory manager can be selected.
+sample csv inventory fie called inventory is included in src folder.
+the receipt is saved to the same folder as the src file.
 
-after checkout need to clear the text labels accordingly.
+//need to clear the values in the checkout table after checkout.
