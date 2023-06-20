@@ -12,7 +12,9 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
     private JButton open;
     private JButton close;
     private JButton create;
-
+    private JLabel label;
+    private JPanel buttonpanel;
+    private JPanel labell;
     private JFileChooser fileChooser;
     private InventoryDataProcessor inventoryDataProcessor=new InventoryDataProcessor();
 
@@ -20,27 +22,39 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
 
 
     public WelcomeScreenPanel(ProjectFrame frame) {
+        this.frame = frame;
+        setLayout(new BorderLayout());
+        welcomeScreenPanel=new JPanel(new BorderLayout());
         welcomeScreenPanel.setBackground(Color.WHITE);
         welcomeScreenPanel.setPreferredSize(new Dimension(400, 200));
+
         welcomeScreenPanel.setVisible(true);
 
+        JPanel buttonpanel=new JPanel();
         open= new JButton("Open");
-        add(open);
+        buttonpanel.add(open);
         open.addActionListener(this);
 
         create = new JButton("Create");
-        add(create);
+        buttonpanel.add(create);
         create.addActionListener(this);
+
+        close = new JButton("Close");
+        buttonpanel.add(close);
+        close.addActionListener(this);
+        label=new JLabel("NeptuneX");
+        label.setFont(new Font("Arial", Font.BOLD,24));
+
+        welcomeScreenPanel.add(label,BorderLayout.CENTER);
+        welcomeScreenPanel.add(buttonpanel,BorderLayout.NORTH);
 
 
         //cameron code
-        this.frame = frame;
+        add(welcomeScreenPanel);
         frame.getContentPane().removeAll();
         frame.getContentPane().add(this);
 
-//        close = new JButton("Close");
-//        add(close);
-//        close.addActionListener(this);
+
 
 
     }
