@@ -14,7 +14,7 @@ import java.util.List;
 
 public class InventoryManagerpanel extends JPanel implements ActionListener, ListSelectionListener {
 
-    //welcome screen panel instance for back button TODO
+
     private JButton add;
     private JButton delete;
     private JButton update;
@@ -23,7 +23,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
 
     private JButton back;
-    // table adaptor private JTable inventorytable;
 
     private String filepath;
 
@@ -65,16 +64,13 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         buttonpanel.add(delete);
         update = new JButton("Update");
         update.addActionListener(this);
-
         buttonpanel.add(update);
-
         back=new JButton("Back");
         back.addActionListener(this);
         buttonpanel.add(back);
-
         add(buttonpanel, BorderLayout.CENTER);
 
-        //Textfield panel
+
 
         JPanel textfieldpanel = new JPanel();
         textfieldpanel.setLayout(new GridLayout(5, 2));
@@ -110,7 +106,6 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
 
 
 
-        //Trying out new layout
         JPanel filterpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel filterLabel = new JLabel("Filter");
         filterbox=new JComboBox<>(new String[]{"All items","In stock","Out of stock"});
@@ -120,12 +115,10 @@ public class InventoryManagerpanel extends JPanel implements ActionListener, Lis
         filterpanel.add(filterbox);
         add(filterpanel,BorderLayout.WEST);
 
-        //Search Panel
         JPanel searchpanel=new JPanel();
         searchTextField=new JTextField(20);
         searchTextField.addActionListener(this);
         filterpanel.add(searchTextField);
-//        filterpanel.add(new JLabel("Search"));
         search=new JButton("Search");
         search.addActionListener(this);
         filterpanel.add(search);

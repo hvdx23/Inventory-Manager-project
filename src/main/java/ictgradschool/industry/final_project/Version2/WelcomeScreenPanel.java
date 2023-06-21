@@ -13,9 +13,6 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
     private JButton close;
     private JButton create;
     private JLabel label;
-    private JPanel buttonpanel;
-    private JPanel labell;
-    private JFileChooser fileChooser;
     private InventoryDataProcessor inventoryDataProcessor=new InventoryDataProcessor();
 
 
@@ -83,7 +80,6 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
 
         if (e.getSource()== open){
             final JFileChooser fc = new JFileChooser();
-//            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fc.setCurrentDirectory(new File("../src/main/resources/"));
             int returnVal=fc.showDialog(WelcomeScreenPanel.this,"Open");
 
@@ -114,7 +110,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener {
         }
     }
 
-    //asper cameron code
+
     private void openManagerPanel(String filepath){
 
 

@@ -89,8 +89,8 @@ public class POSpanel extends JPanel implements ActionListener {
 
 
         table = new DefaultTableModel(
-                new Object[][]{},   // set the table to be empty
-                new String[]{"ID", "Name", "Description", "Price", "Quantity"}  // column names
+                new Object[][]{},
+                new String[]{"ID", "Name", "Description", "Price", "Quantity"}
         );
 
 
